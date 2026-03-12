@@ -5,7 +5,6 @@ import { drinks } from "@/components/drink/drinks";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "@/components/Footer";
 export default function MenuPage() {
   const [category, setCategory] = useState("all");
   const [mounted, setMounted] = useState(false);
@@ -83,7 +82,6 @@ export default function MenuPage() {
           ))}
         </div>
       </section>
-      <Footer />
     </>
   );
 }

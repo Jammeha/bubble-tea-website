@@ -40,7 +40,9 @@ export default function Navbar() {
             </button>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <Link href="/#contact" className="hover:text-[#E88997] transition">
+              Contact
+            </Link>
           </li>
         </ul>
 
@@ -108,9 +110,9 @@ export default function Navbar() {
           >
             Delivery
           </button>
-          <a href="#contact" onClick={() => setIsOpen(false)}>
+          <Link href="/#contact" onClick={() => setIsOpen(false)}>
             Contact
-          </a>
+          </Link>
         </div>
       )}
     </nav>
