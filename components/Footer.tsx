@@ -99,9 +99,9 @@ const Footer = () => {
 
               {section.items.map((item, i) => (
                 <div key={i} className="mb-3">
-                  {item.href ? (
+                  {(item as any).href ? (
                     <a
-                      href={item.href}
+                      href={(item as any).href}
                       className="text-white/80 hover:text-white hover:translate-x-1 transition duration-300 inline-block"
                     >
                       {item.name}
@@ -109,7 +109,7 @@ const Footer = () => {
                   ) : (
                     <>
                       <p>{item.name}</p>
-                      <p className="text-white/60 text-xs">{item.sub}</p>
+                      <p className="text-white/60 text-xs">{(item as any).sub}</p>
                     </>
                   )}
                 </div>

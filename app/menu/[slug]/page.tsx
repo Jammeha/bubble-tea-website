@@ -14,8 +14,8 @@ export default function DrinkPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
-  const drink = drinks.find((d) => d.slug === slug);
-  const { addToCart } = useCart();
+  const drink: any = drinks.find((d) => d.slug === slug);
+  const { addToCart } = useCart() as any;
   const router = useRouter();
 
   const [size, setSize] = useState(sizes[0]);
@@ -77,13 +77,13 @@ export default function DrinkPage({
               {[...Array(5)].map((_, i) => (
                 <span
                   key={i}
-                  className={`text-xl ${i < Math.floor(drink.rating || 4) ? "text-yellow-400" : "text-gray-300"}`}
+                  className={`text-xl ${i < Math.floor((drink as any).rating || 4) ? "text-yellow-400" : "text-gray-300"}`}
                 >
                   ★
                 </span>
               ))}
               <span className="text-sm text-gray-500 ml-1">
-                ({drink.rating || 4.5})
+                ({(drink as any).rating || 4.5})
               </span>
             </div>
           </div>

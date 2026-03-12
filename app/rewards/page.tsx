@@ -8,7 +8,7 @@ const TOTAL_STAMPS = 10;
 
 export default function LoyaltyCardPage() {
   const [stamps, setStamps] = useState(3);
-  const [reward, setReward] = useState(null);
+  const [reward, setReward] = useState<string | null>(null);
 
   const addStamp = () => {
     if (stamps >= TOTAL_STAMPS) return;
