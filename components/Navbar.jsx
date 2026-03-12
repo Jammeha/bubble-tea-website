@@ -35,6 +35,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsCartOpen(true)}
               className="hover:text-[#E88997] transition"
+              suppressHydrationWarning
             >
               Delivery
             </button>
@@ -52,6 +53,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsCartOpen(true)}
             className="relative hover:scale-110 transition"
+            suppressHydrationWarning
           >
             <Image src="/cup.png" width={35} height={35} alt="cart cup" />
             {totalItems > 0 && (
@@ -62,13 +64,16 @@ export default function Navbar() {
           </button>
 
           {/* Login Button */}
-          <button className="hidden md:inline bg-[#4B2E2E] text-white px-6 py-2 rounded-full hover:bg-[#5C3B3B]">
+          <button 
+            className="hidden md:inline bg-[#4B2E2E] text-white px-6 py-2 rounded-full hover:bg-[#5C3B3B]"
+            suppressHydrationWarning
+          >
             Login
           </button>
 
           {/* Hamburger */}
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)}>
+            <button onClick={() => setIsOpen(!isOpen)} suppressHydrationWarning>
               <svg
                 className="w-8 h-8 text-[#4B2E2E]"
                 fill="none"
@@ -107,6 +112,7 @@ export default function Navbar() {
               setIsOpen(false);
             }}
             className="text-left"
+            suppressHydrationWarning
           >
             Delivery
           </button>

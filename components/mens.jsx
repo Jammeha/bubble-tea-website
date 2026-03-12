@@ -39,7 +39,7 @@ const Mens = () => {
               <p className="mt-2 text-[#E88997] font-semibold text-lg">
                 ${drink.price.toFixed(2)}
               </p>
-              <div className="mt-6 bg-[#E88997] text-[#4B2E2E] px-6 py-2 rounded-full hover:bg-[#d9788c] transition font-semibold">
+              <div className="mt-6 bg-[#E88997] text-[#4B2E2E] px-6 py-2 rounded-full hover:bg-[#d9788c] transition font-semibold" suppressHydrationWarning>
                 Order Now →
               </div>
             </div>
@@ -50,7 +50,7 @@ const Mens = () => {
       {/* Go To Menu Button */}
       <div className="flex justify-center mt-16">
         <Link href="/menu">
-          <button className="bg-[#4B2E2E] text-white px-8 py-3 rounded-full text-lg hover:bg-[#3b2222] transition shadow-md">
+          <button className="bg-[#4B2E2E] text-white px-8 py-3 rounded-full text-lg hover:bg-[#3b2222] transition shadow-md" suppressHydrationWarning>
             Go To Full Menu →
           </button>
         </Link>

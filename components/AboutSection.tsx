@@ -23,7 +23,7 @@ const AboutSection = () => {
             delight your taste buds. Join us for a sweet, fresh experience and
             discover flavors you’ll fall in love with!
           </p>
-          <button className="mt-8 bg-[#4B2E2E] text-white px-8 py-3 rounded-full hover:opacity-90 transition">
+          <button className="mt-8 bg-[#4B2E2E] text-white px-8 py-3 rounded-full hover:opacity-90 transition" suppressHydrationWarning>
             Learn More
           </button>
         </div>

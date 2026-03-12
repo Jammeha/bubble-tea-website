@@ -38,11 +38,11 @@ const Hero = () => {
           </p>
 
           <div className="flex gap-4 mt-8">
-            <button className="bg-[#4B2E2E] text-white px-8 py-3 rounded-full hover:opacity-90 transition">
+            <button className="bg-[#4B2E2E] text-white px-8 py-3 rounded-full hover:opacity-90 transition" suppressHydrationWarning>
               Order Now
             </button>
 
-            <button className="border border-[#4B2E2E] text-[#4B2E2E] px-8 py-3 rounded-full hover:bg-[#4B2E2E] hover:text-white transition">
+            <button className="border border-[#4B2E2E] text-[#4B2E2E] px-8 py-3 rounded-full hover:bg-[#4B2E2E] hover:text-white transition" suppressHydrationWarning>
               View Menu
             </button>
           </div>

@@ -53,9 +53,10 @@ const Footer = () => {
               type="email"
               placeholder="Enter your email"
               className="flex-1 px-5 py-3 bg-transparent outline-none text-white placeholder:text-white/50"
+              suppressHydrationWarning
             />
 
-            <button className="bg-white text-[#4b2e2a] px-6 font-semibold hover:bg-white/90 transition">
+            <button className="bg-white text-[#4b2e2a] px-6 font-semibold hover:bg-white/90 transition" suppressHydrationWarning>
               →
             </button>
           </div>
@@ -120,7 +121,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="relative z-10 border-t border-white/20 mt-16 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-white/60 max-w-7xl mx-auto">
-        <p>© {new Date().getFullYear()} Boba House. All rights reserved.</p>
+        <p suppressHydrationWarning>© {new Date().getFullYear()} Boba House. All rights reserved.</p>
 
         <div className="flex gap-6 mt-3 md:mt-0">
           <p className="hover:text-white cursor-pointer transition">
