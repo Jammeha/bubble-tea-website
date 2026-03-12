@@ -32,10 +32,12 @@ export default function Navbar() {
             <Link href="/about">About</Link>
           </li>
           <li>
-            <Link href="/rewards">Rewards</Link>
-          </li>
-          <li>
-            <Link href="/delivery">Delivery</Link>
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="hover:text-[#E88997] transition"
+            >
+              Delivery
+            </button>
           </li>
           <li>
             <a href="#contact">Contact</a>
@@ -97,12 +99,15 @@ export default function Navbar() {
           <Link href="/about" onClick={() => setIsOpen(false)}>
             About
           </Link>
-          <Link href="/rewards" onClick={() => setIsOpen(false)}>
-            Rewards
-          </Link>
-          <Link href="/delivery" onClick={() => setIsOpen(false)}>
+          <button
+            onClick={() => {
+              setIsCartOpen(true);
+              setIsOpen(false);
+            }}
+            className="text-left"
+          >
             Delivery
-          </Link>
+          </button>
           <a href="#contact" onClick={() => setIsOpen(false)}>
             Contact
           </a>

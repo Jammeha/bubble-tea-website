@@ -3,6 +3,7 @@ import { Fredoka } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/context/CartContext";
 import CartDrawer from "@/components/CartDrawer";
+import PromotionBanner from "@/components/PromotionBanner";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={fredoka.className} suppressHydrationWarning>
         <CartProvider>
+          <PromotionBanner />
           {/* This is the ONLY place children should be */}
           {children}
           <CartDrawer />

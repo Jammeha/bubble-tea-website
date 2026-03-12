@@ -54,7 +54,12 @@ export default function MenuPage() {
         <div className="max-w-7xl mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-12">
           {filtered.map((drink) => (
             <Link key={drink.id} href={`/menu/${drink.slug}`} className="group">
-              <div className="bg-white rounded-3xl shadow-xl p-6 hover:-translate-y-2 transition cursor-pointer">
+              <div className="relative bg-white rounded-3xl shadow-xl p-6 hover:-translate-y-2 transition cursor-pointer overflow-hidden">
+                {(drink as any).isSpecial && (
+                  <div className="absolute top-4 left-0 bg-[#E88997] text-[#4B2E2E] py-1 px-4 rounded-r-full text-xs font-bold uppercase tracking-wider z-20 shadow-md">
+                    Special
+                  </div>
+                )}
                 <div className="relative w-full h-[240px] mb-4">
                   <Image
                     src={drink.image}

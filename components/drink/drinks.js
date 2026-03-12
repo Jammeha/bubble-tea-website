@@ -6,6 +6,7 @@ export const drinks = [
     price: 3.5,
     image: "/matcha.png",
     category: "bubble",
+    isSpecial: true,
   },
   {
     id: 2,
@@ -30,6 +31,7 @@ export const drinks = [
     price: 5.0,
     image: "/waffle.png",
     category: "waffle",
+    isSpecial: true,
   },
   {
     id: 5,

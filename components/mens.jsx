@@ -19,7 +19,12 @@ const Mens = () => {
       <div className="grid md:grid-cols-3 gap-10">
         {drinks.slice(0, 3).map((drink) => (
           <Link key={drink.id} href={`/menu/${drink.slug}`}>
-            <div className="bg-[#4B2E2E] rounded-3xl p-6 flex flex-col items-center shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl cursor-pointer">
+            <div className="relative bg-[#4B2E2E] rounded-3xl p-6 flex flex-col items-center shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl cursor-pointer overflow-hidden">
+              {drink.isSpecial && (
+                <div className="absolute top-4 left-0 bg-[#E88997] text-[#4B2E2E] py-1 px-4 rounded-r-full text-xs font-bold uppercase tracking-wider z-20 shadow-md">
+                  Special
+                </div>
+              )}
               <div className="relative w-48 h-48 md:w-56 md:h-56">
                 <Image
                   src={drink.image}
