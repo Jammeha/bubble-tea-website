@@ -1,0 +1,42 @@
+export const drinks = [
+  {
+    id: 1,
+    name: "Taro Milk Tea",
+    slug: "taro-milk-tea",
+    price: 3.5,
+    image: "/matcha.png",
+    category: "bubble",
+  },
+  {
+    id: 2,
+    name: "Classic Bubble Tea",
+    slug: "classic-bubble-tea",
+    price: 3.0,
+    image: "/rose.png",
+    category: "bubble",
+  },
+  {
+    id: 3,
+    name: "Strawberry Smoothie",
+    slug: "strawberry-smoothie",
+    price: 4.0,
+    image: "/thai.png",
+    category: "matcha",
+  },
+  {
+    id: 4,
+    name: "Chocolate Bubble Waffle",
+    slug: "chocolate-bubble-waffle",
+    price: 5.0,
+    image: "/waffle.png",
+    category: "waffle",
+  },
+  {
+    id: 5,
+    name: "Vanilla Ice Cream",
+    slug: "vanilla-ice-cream",
+    price: 3.0,
+    image: "/ice.png",
+    category: "ice",
+  },
+];
