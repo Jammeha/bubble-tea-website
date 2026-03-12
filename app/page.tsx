@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+
 
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Mens from "../components/mens";
 import AboutSection from "../components/AboutSection";
+import ContactSection from "../components/ContactSection";
 import Testimonials from "../components/testimonials";
 import Footer from "../components/Footer";
 // import DeliveryHero from "@/components/DeliveryHero";
@@ -16,7 +17,7 @@ export default function Home() {
       <Hero />
       <Mens />
       <AboutSection />
-      {/* <DeliveryHero /> */}
+      <ContactSection />
       <Testimonials />
       <Footer />
     </main>

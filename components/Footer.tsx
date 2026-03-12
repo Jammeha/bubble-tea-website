@@ -29,7 +29,6 @@ const Footer = () => {
 
   return (
     <footer
-      id="contact"
       className="relative bg-gradient-to-b from-[#4b2e2a] to-[#2f1a17] text-white px-8 py-20 overflow-hidden"
     >
       {/* Watermark Logo */}
