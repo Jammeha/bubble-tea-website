@@ -20,7 +20,7 @@ const ContactSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 lg:gap-8 gap-y-12">
           {/* Card 1: Senegambia */}
           <div className="bg-[#FDF4F6] p-8 rounded-3xl shadow-sm border border-pink-100 hover:shadow-md transition">
             <div className="bg-[#E88997] w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-white">
@@ -63,25 +63,59 @@ const ContactSection = () => {
             </div>
           </div>
 
-          {/* Card 3: Contact Info */}
-          <div className="bg-[#4B2E2E] p-8 rounded-3xl shadow-xl lg:col-span-1 md:col-span-2 flex flex-col justify-center text-white">
-            <h3 className="text-3xl font-bold mb-4">Chat with us!</h3>
-            <p className="text-pink-100/80 mb-8 max-w-sm">
-              Quick questions about flavors or delivery areas? Message us on WhatsApp for the fastest response.
+          {/* Card 3: Branch 3 Coming Soon */}
+          <div className="bg-[#FDF4F6] p-8 rounded-3xl shadow-sm border border-pink-100 opacity-60 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 bg-[#E88997] text-white px-4 py-1 text-[10px] font-black uppercase tracking-tighter rounded-bl-xl">Coming Soon</div>
+            <div className="bg-[#4B2E2E]/10 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-[#4B2E2E]">
+              <MapPin size={24} />
+            </div>
+            <h3 className="text-2xl font-bold text-[#4B2E2E] mb-2">Fajara</h3>
+            <p className="text-[#6B4B4B] mb-6">
+              Future Location,<br />
+              Next to Ocean Bay
             </p>
+            <div className="pt-6 border-t border-pink-200/50">
+               <p className="text-[10px] font-black text-[#E88997] uppercase tracking-widest">Expansion in progress</p>
+            </div>
+          </div>
+
+          {/* Card 4: Branch 4 Coming Soon */}
+          <div className="bg-[#FDF4F6] p-8 rounded-3xl shadow-sm border border-pink-100 opacity-60 relative overflow-hidden group">
+             <div className="absolute top-0 right-0 bg-[#E88997] text-white px-4 py-1 text-[10px] font-black uppercase tracking-tighter rounded-bl-xl">Coming Soon</div>
+            <div className="bg-[#4B2E2E]/10 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-[#4B2E2E]">
+              <MapPin size={24} />
+            </div>
+            <h3 className="text-2xl font-bold text-[#4B2E2E] mb-2">Brusubi</h3>
+            <p className="text-[#6B4B4B] mb-6">
+              Future Location,<br />
+              Brusubi Turntable
+            </p>
+            <div className="pt-6 border-t border-pink-200/50">
+               <p className="text-[10px] font-black text-[#E88997] uppercase tracking-widest">Coming to your neighborhood</p>
+            </div>
+          </div>
+
+          {/* Card 5: Contact Info */}
+          <div className="bg-[#4B2E2E] p-8 rounded-3xl shadow-xl md:col-span-2 flex flex-col md:flex-row items-center justify-between text-white gap-8">
+            <div className="max-w-md">
+              <h3 className="text-3xl font-bold mb-4">Chat with us!</h3>
+              <p className="text-pink-100/80 mb-0">
+                Quick questions about flavors or delivery areas? Message us on WhatsApp for the fastest response.
+              </p>
+            </div>
             
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
               <a 
                 href={`https://wa.me/${CONTACT_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#25D366] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:scale-105 transition shadow-lg"
+                className="bg-[#25D366] text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:scale-105 transition shadow-lg whitespace-nowrap"
               >
                 <MessageCircle size={20} /> WhatsApp Us
               </a>
               <a 
                 href={`tel:${CONTACT_NUMBER}`}
-                className="bg-white/10 text-white py-4 rounded-2xl font-bold border border-white/20 flex items-center justify-center gap-2 hover:bg-white/20 transition"
+                className="bg-white/10 text-white px-8 py-4 rounded-2xl font-bold border border-white/20 flex items-center justify-center gap-2 hover:bg-white/20 transition whitespace-nowrap"
               >
                 <Phone size={20} /> Call Store
               </a>

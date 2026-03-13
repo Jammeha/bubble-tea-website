@@ -6,7 +6,7 @@ const testimonials = [
     id: 1,
     name: "Fatou Drammeh",
     feedback: "The best bubble tea in The Gambia! The Brown Sugar Milk is absolute perfection. Fast delivery to Senegambia too!",
-    avatar: "/rose.png",
+    avatar: "/Avatars.png",
     rating: 5,
     color: "from-[#FF9A9E] to-[#FAD0C4]",
   },
@@ -14,7 +14,7 @@ const testimonials = [
     id: 2,
     name: "Modou Jallow",
     feedback: "Bubbles is my daily ritual. The Fruit Teas are so refreshing, and the packaging is just beautiful. Premium quality everywhere.",
-    avatar: "/matcha.png",
+    avatar: "/Brown.png",
     rating: 5,
     color: "from-[#A18CD1] to-[#FBC2EB]",
   },
@@ -60,11 +60,11 @@ const Testimonials = () => {
             <div
               key={testi.id}
               onClick={() => handleCardClick(testi.id)}
-              className={`relative group p-1 rounded-[3rem] transition-all duration-300 cursor-pointer ${
-                idx === 1 ? 'lg:-translate-y-8' : ''
-              } ${shakingCardId === testi.id ? 'animate-shake' : ''}`}
+              className={`relative group p-1 rounded-[3rem] transition-all duration-300 cursor-pointer hover:-translate-y-2 hover:scale-[1.02] ${
+                shakingCardId === testi.id ? 'animate-shake' : ''
+              }`}
             >
-              <div className="relative bg-white border border-[#E88997]/10 p-10 rounded-[2.8rem] shadow-[0_20px_50px_rgba(75,46,46,0.05)] flex flex-col h-full">
+              <div className="relative bg-white border border-[#E88997]/10 group-hover:border-[#E88997]/30 p-10 rounded-[2.8rem] shadow-[0_20px_50px_rgba(75,46,46,0.05)] group-hover:shadow-[0_30px_60px_rgba(75,46,46,0.12)] transition-all duration-300 flex flex-col h-full">
                 {/* Quote Icon */}
                 <span className="text-7xl text-[#4B2E2E]/5 absolute top-6 right-10 select-none">"</span>
                 

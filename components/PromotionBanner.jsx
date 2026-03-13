@@ -63,7 +63,7 @@ const PromotionBanner = () => {
   const currentPromo = visiblePromos[index];
 
   return (
-    <div className="bg-[#4B2E2E] text-[#F7D9DC] py-2 px-6 text-center text-sm font-black uppercase tracking-widest h-10 flex items-center justify-center overflow-hidden border-b border-[#4B2E2E]/10 relative z-[60]">
+    <div className="bg-[#4B2E2E] text-[#F7D9DC] py-2 px-6 text-center text-sm font-black uppercase tracking-widest h-10 flex items-center justify-center overflow-hidden border-b border-[#4B2E2E]/10 relative z-20">
       <div 
         className="transition-opacity duration-500 ease-in-out flex items-center justify-center gap-2"
         style={{ opacity }}

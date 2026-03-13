@@ -59,9 +59,14 @@ const AboutSection = () => {
             </button>
             <div className="flex items-center gap-3">
               <div className="flex -space-x-3">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-[#F7D9DC] overflow-hidden relative shadow-md">
-                     <div className="absolute inset-0 bg-[#E88997]/20"></div>
+                {["/Avatars.png", "/Brown.png", "/thai.png"].map((avatar, i) => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-white overflow-hidden relative shadow-md">
+                     <Image
+                        src={avatar}
+                        fill
+                        alt={`Fan ${i + 1}`}
+                        className="object-cover"
+                     />
                   </div>
                 ))}
               </div>

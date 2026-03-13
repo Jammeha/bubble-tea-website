@@ -12,9 +12,12 @@ const fredoka = Fredoka({
 });
 
 export const metadata: Metadata = {
-  title: "Boba Shop",
-  description: "Delicious Bubble Tea & Waffles",
+  title: "Bubbles | Fresh & Premium Bubble Tea & Waffles",
+  description: "Experience the magic in every cup. Best Bubble Tea in The Gambia with fast delivery to Senegambia and beyond.",
 };
+
+// Deployment sync: 2026-03-13T14:26:29Z
+
 
 export default function RootLayout({
   children,
