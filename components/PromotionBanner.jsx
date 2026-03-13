@@ -63,14 +63,14 @@ const PromotionBanner = () => {
   const currentPromo = visiblePromos[index];
 
   return (
-    <div className="bg-[#4B2E2E] text-[#F7D9DC] py-2 px-6 text-center text-sm font-semibold tracking-wide h-9 flex items-center justify-center overflow-hidden">
+    <div className="bg-[#4B2E2E] text-[#F7D9DC] py-2 px-6 text-center text-sm font-black uppercase tracking-widest h-10 flex items-center justify-center overflow-hidden border-b border-[#4B2E2E]/10 relative z-[60]">
       <div 
         className="transition-opacity duration-500 ease-in-out flex items-center justify-center gap-2"
         style={{ opacity }}
       >
-        <span className="inline-block animate-pulse">{currentPromo.icon}</span>
+        <span className="inline-block">{currentPromo.icon}</span>
         <span>{currentPromo.text}</span>
-        <span className="inline-block animate-pulse">{currentPromo.icon}</span>
+        <span className="inline-block">{currentPromo.icon}</span>
       </div>
     </div>
   );

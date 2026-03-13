@@ -25,6 +25,7 @@ export default function DrinkPage({
     (typeof toppings)[0] | null
   >(null);
   const [added, setAdded] = useState(false);
+  const [isShaking, setIsShaking] = useState(false);
 
   if (!drink) return <div className="p-10">Drink not found</div>;
 
@@ -44,7 +45,9 @@ export default function DrinkPage({
       qty: 1,
     });
     setAdded(true);
+    setIsShaking(true);
     setTimeout(() => setAdded(false), 2000);
+    setTimeout(() => setIsShaking(false), 500);
   };
 
   return (
@@ -101,7 +104,7 @@ export default function DrinkPage({
                 {drink.description}
               </p>
               <p className="text-[#E88997] text-3xl font-bold mt-3">
-                ${drink.price.toFixed(2)}
+                D{drink.price.toFixed(2)}
               </p>
             </div>
 
@@ -124,7 +127,7 @@ export default function DrinkPage({
                     {s.name}
                     {s.price > 0 && (
                       <span className="ml-1 text-xs opacity-70">
-                        +${s.price}
+                        +D{s.price}
                       </span>
                     )}
                   </button>
@@ -189,7 +192,7 @@ export default function DrinkPage({
                       <span
                         className={`text-sm ${isSelected ? "text-pink-200" : "text-[#E88997]"}`}
                       >
-                        +${t.price.toFixed(2)}
+                        +D{t.price.toFixed(2)}
                       </span>
                     </button>
                   );
@@ -202,28 +205,30 @@ export default function DrinkPage({
               <div className="flex flex-col gap-1 mb-4 text-sm text-gray-500">
                 <div className="flex justify-between">
                   <span>Base price</span>
-                  <span>${drink.price.toFixed(2)}</span>
+                  <span>D{drink.price.toFixed(2)}</span>
                 </div>
                 {size.price > 0 && (
                   <div className="flex justify-between">
                     <span>Size ({size.name})</span>
-                    <span>+${size.price.toFixed(2)}</span>
+                    <span>+D{size.price.toFixed(2)}</span>
                   </div>
                 )}
                 {selectedTopping && (
                   <div className="flex justify-between">
                     <span>{selectedTopping.name}</span>
-                    <span>+${selectedTopping.price.toFixed(2)}</span>
+                    <span>+D{selectedTopping.price.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="border-t pt-2 mt-1 flex justify-between font-bold text-[#4B2E2E] text-lg">
                   <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
+                  <span>D{total.toFixed(2)}</span>
                 </div>
               </div>
               <button
                 onClick={handleAddToCart}
                 className={`w-full py-4 rounded-full font-bold text-lg transition-all duration-300 ${
+                  isShaking ? "animate-shake" : ""
+                } ${
                   added
                     ? "bg-green-500 text-white scale-95"
                     : "bg-[#4B2E2E] text-white hover:bg-[#5C3B3B] hover:scale-105 shadow-lg"

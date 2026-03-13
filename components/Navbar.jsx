@@ -9,7 +9,14 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { cart, setIsCartOpen } = useCart();
 
+  const [isShaking, setIsShaking] = useState(false);
   const totalItems = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+
+  const handleCartClick = () => {
+    setIsCartOpen(true);
+    setIsShaking(true);
+    setTimeout(() => setIsShaking(false), 500);
+  };
 
   return (
     <nav className="bg-[#F7D9DC] px-6 md:px-10 py-4 sticky top-0 z-50 shadow-md">
@@ -51,13 +58,13 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           {/* Cart Icon → opens drawer */}
           <button
-            onClick={() => setIsCartOpen(true)}
-            className="relative hover:scale-110 transition"
+            onClick={handleCartClick}
+            className={`relative hover:scale-110 transition ${isShaking ? "animate-shake" : ""}`}
             suppressHydrationWarning
           >
             <Image src="/cup.png" width={35} height={35} alt="cart cup" />
             {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-md">
+              <span className="absolute -top-2 -right-2 bg-white text-[#4B2E2E] text-xs font-bold px-2 py-0.5 rounded-full shadow-md border border-pink-100">
                 {totalItems}
               </span>
             )}

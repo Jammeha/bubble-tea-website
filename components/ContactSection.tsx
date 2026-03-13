@@ -2,7 +2,7 @@
 
 import { MapPin, Clock, Phone, MessageCircle } from "lucide-react";
 
-const CONTACT_NUMBER = "220XXXXXXXX"; // Replace with real number
+const CONTACT_NUMBER = "2205410593";
 
 const ContactSection = () => {
   return (
