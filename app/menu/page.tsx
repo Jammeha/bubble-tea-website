@@ -96,8 +96,10 @@ export default function MenuPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
-            {filtered.map((drink) => (
-              <Link key={drink.id} href={`/menu/${drink.slug}`} className="group relative">
+            {filtered.map((drink) => {
+              const isSnack = drink.category === "snacks";
+              
+              const CardContent = (
                 <div className="h-full bg-[#4B2E2E] rounded-[2.5rem] p-8 pb-10 border border-[#5C3B3B] shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:shadow-[0_40px_80px_rgba(75,46,46,0.3)] transition-all duration-500 hover:-translate-y-3 flex flex-col items-center">
                   
                   {/* Special Badge (Bestseller or Seasonal) */}
@@ -147,7 +149,6 @@ export default function MenuPage() {
                     </div>
 
                     <div 
-                      onClick={(e) => handleQuickAdd(e, drink)}
                       suppressHydrationWarning 
                       className={`inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-bold transition-all duration-300 shadow-md transform group-hover:scale-105 active:scale-95 mb-2 ${
                         addedId === drink.id 
@@ -155,14 +156,28 @@ export default function MenuPage() {
                           : "bg-[#E88997] text-[#4B2E2E] hover:bg-white"
                       }`}
                     >
-                       {drink.category === "snacks" 
+                       {isSnack 
                          ? (addedId === drink.id ? "Added! ✓" : "Quick Add 🧋")
                          : "Explore Details"}
                     </div>
                   </div>
                 </div>
-              </Link>
-            ))}
+              );
+
+              return isSnack ? (
+                <div 
+                  key={drink.id} 
+                  onClick={(e) => handleQuickAdd(e, drink)} 
+                  className="group relative cursor-pointer"
+                >
+                  {CardContent}
+                </div>
+              ) : (
+                <Link key={drink.id} href={`/menu/${drink.slug}`} className="group relative">
+                  {CardContent}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
