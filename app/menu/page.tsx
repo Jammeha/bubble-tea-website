@@ -77,7 +77,7 @@ export default function MenuPage() {
 
           {/* Premium Glassmorphic Category Bar */}
           <div className="flex justify-center mb-20">
-            <div className="inline-flex bg-white/40 backdrop-blur-md p-1.5 rounded-full border border-white/60 shadow-xl overflow-hidden touch-pan-x">
+            <div className="inline-flex bg-white/40 backdrop-blur-md p-1.5 rounded-full border border-white/60 shadow-xl overflow-x-auto flex-nowrap max-w-full touch-pan-x no-scrollbar">
               {categories.map((cat) => (
                 <button
                   key={cat}
