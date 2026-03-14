@@ -35,7 +35,7 @@ export default function MenuPage() {
   };
 
   const handleQuickAdd = (e: React.MouseEvent, drink: any) => {
-    if (drink.category !== "snacks") return;
+    if (drink.category !== "snacks" && !drink.isSnack) return;
     
     e.preventDefault();
     e.stopPropagation();
@@ -97,7 +97,7 @@ export default function MenuPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
             {filtered.map((drink) => {
-              const isSnack = drink.category === "snacks";
+              const isSnack = drink.category === "snacks" || (drink as any).isSnack;
               
               const CardContent = (
                 <div className="h-full bg-[#4B2E2E] rounded-[2.5rem] p-8 pb-10 border border-[#5C3B3B] shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:shadow-[0_40px_80px_rgba(75,46,46,0.3)] transition-all duration-500 hover:-translate-y-3 flex flex-col items-center">

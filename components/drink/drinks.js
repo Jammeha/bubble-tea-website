@@ -172,6 +172,7 @@ export const drinks = [
     price: 450,
     image: "/classic.png", // Placeholder image, using classic for now
     category: "specials",
+    isSnack: true,
     seasonal: true,
     seasonLabel: "Special Offer 🍦",
     offerLabel: "Buy 1 Get 1 Free",
