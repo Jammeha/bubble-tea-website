@@ -13,7 +13,7 @@ const AboutSection = () => {
         <div className="relative order-2 lg:order-1">
           <div className="relative z-20 w-full max-w-[450px] aspect-[4/5] rounded-[3rem] overflow-hidden shadow-[0_30px_60px_rgba(75,46,46,0.15)] border-8 border-white group">
             <Image
-              src="/hotpink.png" 
+              src="/tero.png" 
               alt="Bubbles premium tea"
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -23,7 +23,7 @@ const AboutSection = () => {
           {/* Floating Secondary Image */}
           <div className="absolute top-[-15%] right-[-5%] md:right-[-10%] z-30 w-[180px] md:w-[240px] aspect-square rounded-[2rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2)] border-4 border-white rotate-6 hover:rotate-0 transition-all duration-500">
             <Image
-              src="/coco.png"
+              src="/pink.png"
               alt="Fresh ingredients"
               fill
               className="object-cover"

@@ -5,7 +5,7 @@ export const drinks = [
     name: "Classic Milk",
     slug: "classic-milk",
     price: 300,
-    image: "/rose.png",
+    image: "/classic.png",
     category: "milktea",
   },
   {
@@ -13,7 +13,7 @@ export const drinks = [
     name: "Brown Sugar Milk",
     slug: "brown-sugar-milk",
     price: 300,
-    image: "/matcha.png",
+    image: "/BrownSuga.png",
     category: "milktea",
   },
   {
@@ -29,7 +29,7 @@ export const drinks = [
     name: "Mango Milk",
     slug: "mango-milk",
     price: 300,
-    image: "/rose.png",
+    image: "/mango.png",
     category: "milktea",
   },
   {
@@ -37,7 +37,7 @@ export const drinks = [
     name: "Strawberry Milk",
     slug: "strawberry-milk",
     price: 300,
-    image: "/rose.png",
+    image: "/strawberrymilk.png",
     category: "milktea",
   },
 
@@ -47,7 +47,7 @@ export const drinks = [
     name: "Passion Fruit",
     slug: "passion-fruit",
     price: 300,
-    image: "/thai.png",
+    image: "/passion.png",
     category: "fruittea",
   },
   {
@@ -55,7 +55,7 @@ export const drinks = [
     name: "Strawberry Fruit Tea",
     slug: "strawberry-fruit-tea",
     price: 300,
-    image: "/rose.png",
+    image: "/strawberryfruit.png",
     category: "fruittea",
   },
   {
@@ -63,7 +63,7 @@ export const drinks = [
     name: "Mango Fruit Tea",
     slug: "mango-fruit-tea",
     price: 300,
-    image: "/rose.png",
+    image: "/mangofru.png",
     category: "fruittea",
   },
   {
@@ -71,7 +71,7 @@ export const drinks = [
     name: "Jasmine Lemon",
     slug: "jasmine-lemon",
     price: 250,
-    image: "/matcha.png",
+    image: "/jasmine.png",
     category: "fruittea",
   },
   {
@@ -79,7 +79,7 @@ export const drinks = [
     name: "Wonjo",
     slug: "wonjo",
     price: 250,
-    image: "/rose.png",
+    image: "/wonjo.png",
     category: "fruittea",
   },
   {
@@ -87,7 +87,7 @@ export const drinks = [
     name: "Lemon & Mint Ice Tea",
     slug: "lemon-mint-ice-tea",
     price: 250,
-    image: "/matcha.png",
+    image: "/lemon.png",
     category: "fruittea",
   },
   {
@@ -105,7 +105,7 @@ export const drinks = [
     name: "Iced Latte",
     slug: "iced-latte",
     price: 300,
-    image: "/matcha.png",
+    image: "/icedlatte.png",
     category: "specials",
   },
   {
@@ -113,7 +113,7 @@ export const drinks = [
     name: "Caramel/Vanilla Iced Latte",
     slug: "caramel-vanilla-latte",
     price: 350,
-    image: "/matcha.png",
+    image: "/caramel.png",
     category: "specials",
   },
   {
@@ -121,7 +121,7 @@ export const drinks = [
     name: "Chai Masala Milk",
     slug: "chai-masala-milk",
     price: 300,
-    image: "/thai.png",
+    image: "/chai.png",
     category: "specials",
   },
   {
@@ -137,7 +137,7 @@ export const drinks = [
     name: "Taro Milk",
     slug: "taro-milk",
     price: 300,
-    image: "/matcha.png",
+    image: "/tero.png",
     category: "specials",
     isSpecial: true,
   },
@@ -146,7 +146,7 @@ export const drinks = [
     name: "Strawberry Matcha",
     slug: "strawberry-matcha",
     price: 350,
-    image: "/matcha.png",
+    image: "/strawberrymatcha.png",
     category: "specials",
   },
   {
@@ -154,7 +154,7 @@ export const drinks = [
     name: "Baobab Milk",
     slug: "baobab-milk",
     price: 250,
-    image: "/thai.png",
+    image: "/baobabmilk.png",
     category: "specials",
   },
   {
@@ -162,7 +162,7 @@ export const drinks = [
     name: "Pink Paradise (Wonjo & Baobab)",
     slug: "pink-paradise",
     price: 250,
-    image: "/rose.png",
+    image: "/pinkparadise.png",
     category: "specials",
   },
 ];
