@@ -3,12 +3,15 @@
 import { useState, useEffect } from "react";
 import { drinks } from "@/components/drink/drinks";
 import { getActiveDrinks } from "@/utils/seasonalFilter";
+import { useCart } from "@/components/context/CartContext";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 export default function MenuPage() {
   const [category, setCategory] = useState("all");
   const [mounted, setMounted] = useState(false);
+  const [addedId, setAddedId] = useState<number | null>(null);
+  const { addToCart } = useCart() as any;
 
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
@@ -29,6 +32,28 @@ export default function MenuPage() {
       case "snacks": return "Snacks";
       default: return cat;
     }
+  };
+
+  const handleQuickAdd = (e: React.MouseEvent, drink: any) => {
+    if (drink.category !== "snacks") return;
+    
+    e.preventDefault();
+    e.stopPropagation();
+
+    addToCart({
+      id: `${drink.id}-regular-none`,
+      name: drink.name,
+      image: drink.image,
+      size: "Regular",
+      sweetness: "100%",
+      ice: "Regular Ice",
+      toppings: [],
+      price: drink.price,
+      qty: 1,
+    });
+
+    setAddedId(drink.id);
+    setTimeout(() => setAddedId(null), 2000);
   };
 
   return (
@@ -121,8 +146,18 @@ export default function MenuPage() {
                       <div className="h-[1px] w-4 bg-[#E88997]/50"></div>
                     </div>
 
-                    <div suppressHydrationWarning className="inline-flex items-center justify-center bg-[#E88997] text-[#4B2E2E] px-10 py-4 rounded-full text-sm font-bold hover:bg-white transition-all duration-300 shadow-md transform group-hover:scale-105 active:scale-95 mb-2">
-                       Explore Details
+                    <div 
+                      onClick={(e) => handleQuickAdd(e, drink)}
+                      suppressHydrationWarning 
+                      className={`inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-bold transition-all duration-300 shadow-md transform group-hover:scale-105 active:scale-95 mb-2 ${
+                        addedId === drink.id 
+                          ? "bg-green-500 text-white" 
+                          : "bg-[#E88997] text-[#4B2E2E] hover:bg-white"
+                      }`}
+                    >
+                       {drink.category === "snacks" 
+                         ? (addedId === drink.id ? "Added! ✓" : "Quick Add 🧋")
+                         : "Explore Details"}
                     </div>
                   </div>
                 </div>
