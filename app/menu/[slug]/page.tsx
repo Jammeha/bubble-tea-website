@@ -1,6 +1,7 @@
 "use client";
 import { useState, use } from "react";
 import { drinks } from "@/components/drink/drinks";
+import { getActiveDrinks } from "@/utils/seasonalFilter";
 import { toppings } from "@/app/data/toppings";
 import { sizes, sweetnessLevels, iceLevels } from "@/app/data/options";
 import { useCart } from "@/components/context/CartContext";
@@ -14,7 +15,8 @@ export default function DrinkPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
-  const drink: any = drinks.find((d) => d.slug === slug);
+  const activeDrinks = getActiveDrinks(drinks);
+  const drink: any = activeDrinks.find((d) => d.slug === slug);
   const { addToCart } = useCart() as any;
   const router = useRouter();
 

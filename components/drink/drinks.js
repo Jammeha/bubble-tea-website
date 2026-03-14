@@ -165,4 +165,17 @@ export const drinks = [
     image: "/pinkparadise.png",
     category: "specials",
   },
+  {
+    id: 21,
+    name: "Ice Cream Boba",
+    slug: "ice-cream-boba",
+    price: 450,
+    image: "/classic.png", // Placeholder image, using classic for now
+    category: "specials",
+    seasonal: true,
+    seasonLabel: "Special Offer 🍦",
+    offerLabel: "Buy 1 Get 1 Free",
+    availableFrom: "2026-03-14", // Starting today
+    availableTo: "2026-04-14",   // 1 month offer
+  },
 ];

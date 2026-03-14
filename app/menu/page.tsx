@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { drinks } from "@/components/drink/drinks";
+import { getActiveDrinks } from "@/utils/seasonalFilter";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,10 +14,11 @@ export default function MenuPage() {
   if (!mounted) return null;
 
   const categories = ["all", "milktea", "fruittea", "specials"];
+  const activeDrinks = getActiveDrinks(drinks);
   const filtered =
     category === "all"
-      ? drinks
-      : drinks.filter((d) => (d.category || "") === category);
+      ? activeDrinks
+      : activeDrinks.filter((d) => (d.category || "") === category);
 
   const getCategoryName = (cat: string) => {
     switch(cat) {
@@ -72,10 +74,15 @@ export default function MenuPage() {
               <Link key={drink.id} href={`/menu/${drink.slug}`} className="group relative">
                 <div className="h-full bg-[#4B2E2E] rounded-[2.5rem] p-8 pb-10 border border-[#5C3B3B] shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:shadow-[0_40px_80px_rgba(75,46,46,0.3)] transition-all duration-500 hover:-translate-y-3 flex flex-col items-center">
                   
-                  {/* Special Badge */}
+                  {/* Special Badge (Bestseller or Seasonal) */}
                   {(drink as any).isSpecial && (
                     <div className="absolute top-6 left-0 bg-[#E88997] text-[#4B2E2E] py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg">
                       Bestseller
+                    </div>
+                  )}
+                  {(drink as any).seasonal && (
+                    <div className="absolute top-6 left-0 bg-[#4B2E2E] text-white py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg border-l-4 border-[#E88997]">
+                      {(drink as any).seasonLabel || "Special"}
                     </div>
                   )}
 
@@ -100,6 +107,11 @@ export default function MenuPage() {
                     <h3 className="text-2xl font-black leading-tight mb-2 tracking-tight">
                       {drink.name}
                     </h3>
+                    {(drink as any).offerLabel && (
+                      <p className="text-[#E88997] text-xs font-bold uppercase tracking-wider mb-2">
+                        {(drink as any).offerLabel}
+                      </p>
+                    )}
                     <div className="flex items-center justify-center gap-3 mb-8">
                       <div className="h-[1px] w-4 bg-[#E88997]/50"></div>
                       <p suppressHydrationWarning className="text-[#E88997] text-xl font-black">

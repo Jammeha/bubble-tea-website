@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { drinks } from "@/components/drink/drinks";
+import { getActiveDrinks } from "@/utils/seasonalFilter";
 
 const Mens = () => {
   return (
@@ -21,15 +22,21 @@ const Mens = () => {
         </p>
       </div>
 
-      {/* Drinks Grid — only first 3 */}
+      {/* Drinks Grid — only first 3 active drinks */}
       <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 md:gap-16 relative z-10">
-        {drinks.slice(0, 3).map((drink) => (
+        {getActiveDrinks(drinks).slice(0, 3).map((drink) => (
           <Link key={drink.id} href={`/menu/${drink.slug}`} className="group relative">
             <div className="h-full bg-[#4B2E2E] rounded-[3rem] p-10 flex flex-col items-center border border-[#5C3B3B] shadow-[0_15px_45px_rgba(0,0,0,0.2)] hover:shadow-[0_45px_90px_rgba(75,46,46,0.4)] transition-all duration-700 hover:-translate-y-4">
               
+              {/* Badges */}
               {drink.isSpecial && (
                 <div className="absolute top-8 left-0 bg-[#E88997] text-[#4B2E2E] py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg">
                   Must Try
+                </div>
+              )}
+              {drink.seasonal && (
+                <div className="absolute top-8 left-0 bg-[#4B2E2E] text-white py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg border-l-4 border-[#E88997]">
+                  {drink.seasonLabel || "Special"}
                 </div>
               )}
 
@@ -47,6 +54,11 @@ const Mens = () => {
                 <h3 className="font-black text-2xl md:text-3xl leading-tight mb-2 tracking-tight">
                   {drink.name}
                 </h3>
+                {drink.offerLabel && (
+                  <p className="text-[#E88997] text-xs font-bold uppercase tracking-wider mb-4">
+                    {drink.offerLabel}
+                  </p>
+                )}
                 <div className="flex items-center justify-center gap-3 mb-8">
                   <div className="h-[1px] w-4 bg-[#E88997]/50"></div>
                   <p suppressHydrationWarning className="text-[#E88997] text-xl font-black">
