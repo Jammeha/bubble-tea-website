@@ -113,7 +113,7 @@ export const drinks = [
     name: "Caramel/Vanilla Iced Latte",
     slug: "caramel-vanilla-latte",
     price: 350,
-    image: "/caramel.png",
+    image: "/Caramel.png",
     category: "specials",
   },
   {
