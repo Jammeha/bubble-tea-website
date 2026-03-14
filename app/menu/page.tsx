@@ -81,7 +81,7 @@ export default function MenuPage() {
                     </div>
                   )}
                   {(drink as any).seasonal && (
-                    <div className="absolute top-6 left-0 bg-[#4B2E2E] text-white py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg border-l-4 border-[#E88997]">
+                    <div className="absolute top-6 left-0 bg-[#E88997] text-[#4B2E2E] py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg border-l-4 border-[#4B2E2E]">
                       {(drink as any).seasonLabel || "Special"}
                     </div>
                   )}
