@@ -13,7 +13,7 @@ const PROMOTIONS = [
   },
   {
     id: 2,
-    text: "Free Delivery on orders over $50 at Senegambia & Latrikunda!",
+    text: "Delivery fee 300 D. FREE delivery on orders over 3,500 D! 🛵",
     icon: "🛵",
     startDate: null, // Always active
     endDate: null,

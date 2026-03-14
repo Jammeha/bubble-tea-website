@@ -6,6 +6,9 @@ import Image from "next/image";
 
 import { STORES, CONTACT_NUMBER } from "../constants/locations";
 
+const DELIVERY_FEE = 300;
+const FREE_DELIVERY_THRESHOLD = 3500;
+
 export default function CartDrawer() {
   const [mounted, setMounted] = useState(false);
   const {
@@ -53,10 +56,15 @@ export default function CartDrawer() {
         ? `🛵 *Delivery*\nAddress: ${address}`
         : `🏪 *Pickup*\nStore: ${STORES.find((s) => s.id === store)?.label}`;
 
+    const isFreeDelivery = totalPrice >= FREE_DELIVERY_THRESHOLD;
+    const currentDeliveryFee = mode === "delivery" && !isFreeDelivery ? DELIVERY_FEE : 0;
+    const finalTotal = totalPrice + currentDeliveryFee;
+
     const message =
       `🧋 *New Order from Bubbles!*\n\n` +
       `*Order:*\n${itemLines}\n\n` +
-      `*Total: D${totalPrice.toFixed(2)}*\n\n` +
+      (currentDeliveryFee > 0 ? `*Delivery Fee: D${currentDeliveryFee}*\n` : (mode === "delivery" ? `*Delivery Fee: FREE*\n` : "")) +
+      `*Total: D${finalTotal.toFixed(0)}*\n\n` +
       `${fulfillment}\n\n` +
       `*Name:* ${name}\n` +
       `*Phone:* ${phone}`;
@@ -239,10 +247,20 @@ export default function CartDrawer() {
             )}
 
             {/* Total and Place Order — Side by Side for extreme compactness */}
+            {mode === "delivery" && (
+              <div className="flex justify-between items-center mb-2 px-1">
+                <span className="text-[10px] font-bold text-[#4B2E2E]/60 uppercase tracking-widest">Delivery Fee</span>
+                <span className="font-black text-sm text-[#4B2E2E]">
+                  {totalPrice >= FREE_DELIVERY_THRESHOLD ? "FREE" : `D${DELIVERY_FEE}`}
+                </span>
+              </div>
+            )}
             <div className="flex items-center gap-3 mt-1">
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-[#4B2E2E]/40 uppercase tracking-widest">Total</span>
-                <span className="font-black text-xl text-[#4B2E2E] leading-none">D{totalPrice.toFixed(0)}</span>
+                <span className="font-black text-xl text-[#4B2E2E] leading-none">
+                  D{(totalPrice + (mode === "delivery" && totalPrice < FREE_DELIVERY_THRESHOLD ? DELIVERY_FEE : 0)).toFixed(0)}
+                </span>
               </div>
               <button
                 onClick={handlePlaceOrder}
