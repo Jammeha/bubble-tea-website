@@ -13,7 +13,7 @@ export default function MenuPage() {
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  const categories = ["all", "milktea", "fruittea", "specials"];
+  const categories = ["all", "milktea", "fruittea", "specials", "snacks"];
   const activeDrinks = getActiveDrinks(drinks);
   const filtered =
     category === "all"
@@ -26,6 +26,7 @@ export default function MenuPage() {
       case "milktea": return "Milk Tea";
       case "fruittea": return "Fruit Tea";
       case "specials": return "Specials";
+      case "snacks": return "Snacks";
       default: return cat;
     }
   };

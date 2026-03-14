@@ -178,4 +178,40 @@ export const drinks = [
     availableFrom: "2026-03-14", // Starting today
     availableTo: "2026-04-14",   // 1 month offer
   },
+  {
+    id: 22,
+    name: "Belgian Waffle",
+    slug: "belgian-waffle",
+    price: 300,
+    image: "/classic.png",
+    category: "snacks",
+    description: "Crispy on the outside, fluffy on the inside. Served with your choice of syrup.",
+  },
+  {
+    id: 23,
+    name: "Vanilla Ice Cream",
+    slug: "vanilla-ice-cream",
+    price: 300,
+    image: "/classic.png",
+    category: "snacks",
+    description: "Creamy, classic vanilla bean ice cream.",
+  },
+  {
+    id: 24,
+    name: "Chocolate Ice Cream",
+    slug: "chocolate-ice-cream",
+    price: 300,
+    image: "/classic.png",
+    category: "snacks",
+    description: "Rich and decadent dark chocolate ice cream.",
+  },
+  {
+    id: 25,
+    name: "Strawberry Ice Cream",
+    slug: "strawberry-ice-cream",
+    price: 300,
+    image: "/classic.png",
+    category: "snacks",
+    description: "Sweet strawberry ice cream with real fruit chunks.",
+  },
 ];
