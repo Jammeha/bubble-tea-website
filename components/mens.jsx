@@ -1,9 +1,20 @@
+"use client";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { drinks } from "@/components/drink/drinks";
-import { getActiveDrinks } from "@/utils/seasonalFilter";
+import { drinks as localDrinks } from "@/app/data/drinks";
 
 const Mens = () => {
+  // Limit to 3 special drinks as requested
+  const drinks = localDrinks.filter(d => d.isSpecial).slice(0, 3);
+  const loading = false;
+
+  if (loading) return (
+    <div className="py-24 text-center">
+      <div className="animate-pulse text-[#4B2E2E] font-black">Loading your favorites...</div>
+    </div>
+  );
+
   return (
     <section className="bg-white py-24 px-6 md:px-16 relative overflow-hidden">
       {/* Subtle Background Glow */}
@@ -22,58 +33,64 @@ const Mens = () => {
         </p>
       </div>
 
-      {/* Drinks Grid — only first 3 active drinks */}
+      {/* Drinks Grid */}
       <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 md:gap-16 relative z-10">
-        {getActiveDrinks(drinks).slice(0, 3).map((drink) => (
-          <Link key={drink.id} href={`/menu/${drink.slug}`} className="group relative">
-            <div className="h-full bg-[#4B2E2E] rounded-[3rem] p-10 flex flex-col items-center border border-[#5C3B3B] shadow-[0_15px_45px_rgba(0,0,0,0.2)] hover:shadow-[0_45px_90px_rgba(75,46,46,0.4)] transition-all duration-700 hover:-translate-y-4">
-              
-              {/* Badges */}
-              {drink.isSpecial && (
-                <div className="absolute top-8 left-0 bg-[#E88997] text-[#4B2E2E] py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg">
-                  Must Try
-                </div>
-              )}
-              {drink.seasonal && (
-                <div className="absolute top-8 left-0 bg-[#E88997] text-[#4B2E2E] py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg border-l-4 border-[#4B2E2E]">
-                  {drink.seasonLabel || "Special"}
-                </div>
-              )}
+        {drinks.map((drink) => {
+          const drinkId = drink.id;
 
-              <div className="relative w-56 h-56 md:w-64 md:h-64 mb-6">
-                <div className="absolute inset-0 bg-pink-400/10 rounded-full blur-[40px] opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700"></div>
-                <Image
-                  src={drink.image}
-                  alt={drink.name}
-                  fill
-                  className="object-contain relative z-10 drop-shadow-[0_25px_40px_rgba(0,0,0,0.3)] group-hover:scale-110 transition-transform duration-700 ease-out"
-                />
-              </div>
-
-              <div className="text-center w-full mt-auto text-white">
-                <h3 className="font-black text-2xl md:text-3xl leading-tight mb-2 tracking-tight">
-                  {drink.name}
-                </h3>
-                {drink.offerLabel && (
-                  <p className="text-[#E88997] text-xs font-bold uppercase tracking-wider mb-4">
-                    {drink.offerLabel}
-                  </p>
-                )}
-                <div className="flex items-center justify-center gap-3 mb-8">
-                  <div className="h-[1px] w-4 bg-[#E88997]/50"></div>
-                  <p suppressHydrationWarning className="text-[#E88997] text-xl font-black">
-                    D{drink.price.toFixed(2)}
-                  </p>
-                  <div className="h-[1px] w-4 bg-[#E88997]/50"></div>
-                </div>
+          return (
+            <Link key={drinkId} href={`/menu/${drink.slug}`} className="group relative">
+              <div className="h-full bg-[#4B2E2E] rounded-[3rem] p-10 flex flex-col items-center border border-[#5C3B3B] shadow-[0_15px_45px_rgba(0,0,0,0.2)] hover:shadow-[0_45px_90px_rgba(75,46,46,0.4)] transition-all duration-700 hover:-translate-y-4">
                 
-                <div suppressHydrationWarning className="inline-flex bg-[#E88997] text-[#4B2E2E] px-10 py-4 rounded-full font-black text-sm hover:bg-white transition-all duration-300 shadow-md group-hover:scale-105 active:scale-95">
-                  Order Now →
+                {/* Badges */}
+                {drink.isSpecial && (
+                  <div className="absolute top-8 left-0 bg-[#E88997] text-[#4B2E2E] py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg">
+                    Must Try
+                  </div>
+                )}
+                {drink.seasonal && (
+                  <div className="absolute top-8 left-0 bg-[#E88997] text-[#4B2E2E] py-1.5 px-6 rounded-r-full text-[0.65rem] font-black uppercase tracking-[0.15em] z-20 shadow-lg border-l-4 border-[#4B2E2E]">
+                    {drink.seasonLabel || "Special"}
+                  </div>
+                )}
+
+                <div className="relative w-56 h-56 md:w-64 md:h-64 mb-6">
+                  <div className="absolute inset-0 bg-pink-400/10 rounded-full blur-[40px] opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700"></div>
+                  {drink.image && (
+                    <Image
+                      src={drink.image}
+                      alt={drink.name}
+                      fill
+                      className="object-contain relative z-10 drop-shadow-[0_25px_40px_rgba(0,0,0,0.3)] group-hover:scale-110 transition-transform duration-700 ease-out"
+                    />
+                  )}
+                </div>
+
+                <div className="text-center w-full mt-auto text-white">
+                  <h3 className="font-black text-2xl md:text-3xl leading-tight mb-2 tracking-tight">
+                    {drink.name}
+                  </h3>
+                  {drink.offerLabel && (
+                    <p className="text-[#E88997] text-xs font-bold uppercase tracking-wider mb-4">
+                      {drink.offerLabel}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-center gap-3 mb-8">
+                    <div className="h-[1px] w-4 bg-[#E88997]/50"></div>
+                    <p suppressHydrationWarning className="text-[#E88997] text-xl font-black">
+                      D{drink.price?.toFixed(2)}
+                    </p>
+                    <div className="h-[1px] w-4 bg-[#E88997]/50"></div>
+                  </div>
+                  
+                  <div suppressHydrationWarning className="inline-flex bg-[#E88997] text-[#4B2E2E] px-10 py-4 rounded-full font-black text-sm hover:bg-white transition-all duration-300 shadow-md group-hover:scale-105 active:scale-95">
+                    Order Now →
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
 
       {/* Go To Menu Button */}
