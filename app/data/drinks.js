@@ -9,6 +9,7 @@ export const drinks = [
     category: { name: "Classic Milk Tea" },
     description: "The original pearl milk tea that started it all. Rich, creamy, and perfectly balanced.",
     isSpecial: true,
+    rating: 4.8
   },
   {
     id: "2",
@@ -19,6 +20,7 @@ export const drinks = [
     category: { name: "Classic Milk Tea" },
     description: "Our signature brown sugar pearls with creamy milk. A fan favorite.",
     isSpecial: true,
+    rating: 5.0
   },
   {
     id: "3",
@@ -28,6 +30,7 @@ export const drinks = [
     image: "/thai.png",
     category: { name: "Classic Milk Tea" },
     description: "A bold, spice-infused black tea with creamy milk and sweetness.",
+    rating: 4.7
   },
   {
     id: "4",
@@ -37,6 +40,7 @@ export const drinks = [
     image: "/mango.png",
     category: { name: "Classic Milk Tea" },
     description: "Sweet mango puree blended with creamy milk tea.",
+    rating: 4.6
   },
   {
     id: "5",
@@ -46,6 +50,7 @@ export const drinks = [
     image: "/strawberrymilk.png",
     category: { name: "Classic Milk Tea" },
     description: "Fresh strawberry flavors met with our signature creamy base.",
+    rating: 4.7
   },
 
   // FRUIT TEAS
@@ -57,6 +62,7 @@ export const drinks = [
     image: "/passion.png",
     category: { name: "Fruit Tea" },
     description: "Tangy and refreshing passion fruit mixed with premium green tea.",
+    rating: 4.8
   },
   {
     id: "7",
@@ -66,6 +72,7 @@ export const drinks = [
     image: "/strawberryfruit.png",
     category: { name: "Fruit Tea" },
     description: "Fresh strawberries blended with premium jasmine green tea.",
+    rating: 4.7
   },
   {
     id: "8",
@@ -75,6 +82,7 @@ export const drinks = [
     image: "/mangofru.png",
     category: { name: "Fruit Tea" },
     description: "Refreshing green tea infused with real mango pieces.",
+    rating: 4.7
   },
   {
     id: "9",
@@ -84,6 +92,7 @@ export const drinks = [
     image: "/jasmine.png",
     category: { name: "Fruit Tea" },
     description: "Light and floral jasmine tea with a zesty lemon kick.",
+    rating: 4.5
   },
   {
     id: "10",
@@ -93,6 +102,7 @@ export const drinks = [
     image: "/wonjo.png",
     category: { name: "Fruit Tea" },
     description: "Authentic local Hibiscus tea, brewed to perfection.",
+    rating: 4.9
   },
   {
     id: "11",
@@ -102,6 +112,7 @@ export const drinks = [
     image: "/lemon.png",
     category: { name: "Fruit Tea" },
     description: "A classic cooling blend of lemon and fresh mint.",
+    rating: 4.6
   },
   {
     id: "12",
@@ -111,6 +122,7 @@ export const drinks = [
     image: "/rose.png",
     category: { name: "Fruit Tea" },
     description: "Our signature tropical blend of Wonjo and Mango.",
+    rating: 4.8
   },
 
   // SPECIALS
@@ -122,6 +134,7 @@ export const drinks = [
     image: "/icedlatte.png",
     category: { name: "Specialty Drinks" },
     description: "Smooth espresso shots over ice with milk.",
+    rating: 4.7
   },
   {
     id: "14",
@@ -131,6 +144,7 @@ export const drinks = [
     image: "/Caramel.png",
     category: { name: "Specialty Drinks" },
     description: "Your choice of sweet caramel or vanilla in our smooth iced latte.",
+    rating: 4.8
   },
   {
     id: "15",
@@ -140,6 +154,7 @@ export const drinks = [
     image: "/chai.png",
     category: { name: "Specialty Drinks" },
     description: "A perfect blend of rich spices, coffee, and our signature milk tea.",
+    rating: 4.7
   },
   {
     id: "16",
@@ -150,6 +165,7 @@ export const drinks = [
     category: { name: "Specialty Drinks" },
     description: "Premium Japanese matcha whisked to perfection and served with fresh milk.",
     isSpecial: true,
+    rating: 4.9
   },
   {
     id: "17",
@@ -160,6 +176,7 @@ export const drinks = [
     category: { name: "Specialty Drinks" },
     description: "Creamy taro combined with our signature milk tea for a sweet, earthy treat.",
     isSpecial: true,
+    rating: 4.7
   },
   {
     id: "18",
@@ -169,6 +186,7 @@ export const drinks = [
     image: "/strawberrymatcha.png",
     category: { name: "Specialty Drinks" },
     description: "The perfect fusion of earth matcha and sweet strawberries.",
+    rating: 4.8
   },
   {
     id: "19",
@@ -178,6 +196,7 @@ export const drinks = [
     image: "/baobabmilk.png",
     category: { name: "Specialty Drinks" },
     description: "A unique, nutritious blend of local baobab and creamy milk.",
+    rating: 4.6
   },
   {
     id: "20",
@@ -187,6 +206,7 @@ export const drinks = [
     image: "/pinkparadise.png",
     category: { name: "Specialty Drinks" },
     description: "A colorful fusion of refreshing Wonjo and Baobab.",
+    rating: 4.8
   },
   {
     id: "21",
@@ -200,6 +220,7 @@ export const drinks = [
     seasonLabel: "Special Offer 🍦",
     offerLabel: "Buy 1 Get 1 Free",
     description: "Creamy ice cream meet boba pearls in this ultimate dessert drink.",
+    rating: 5.0
   },
 
   // SNACKS
@@ -211,6 +232,7 @@ export const drinks = [
     image: "/zigg.png",
     category: { name: "Snacks" },
     description: "Crispy on the outside, fluffy on the inside. Served with your choice of syrup.",
+    rating: 4.9
   },
   {
     id: "23",
@@ -220,6 +242,7 @@ export const drinks = [
     image: "/cream.png",
     category: { name: "Snacks" },
     description: "Creamy, classic vanilla bean ice cream.",
+    rating: 4.7
   },
   {
     id: "24",
@@ -229,6 +252,7 @@ export const drinks = [
     image: "/whitecu.png",
     category: { name: "Snacks" },
     description: "Rich and decadent dark chocolate ice cream.",
+    rating: 4.8
   },
   {
     id: "25",
@@ -238,5 +262,6 @@ export const drinks = [
     image: "/stick.png",
     category: { name: "Snacks" },
     description: "Sweet strawberry ice cream with real fruit chunks.",
+    rating: 4.7
   },
 ];
