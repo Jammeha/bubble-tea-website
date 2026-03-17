@@ -2,15 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { useCart } from "./context/CartContext";
+import { STORES } from "@/constants/locations";
+import { generalSettings } from "@/app/data/general";
 import Image from "next/image";
 
-import { STORES, CONTACT_NUMBER } from "../constants/locations";
-
-const DELIVERY_FEE = 300;
-const FREE_DELIVERY_THRESHOLD = 3500;
+const DEFAULT_DELIVERY_FEE = 300;
+const CONTACT_NUMBER = "2205410593";
 
 export default function CartDrawer() {
   const [mounted, setMounted] = useState(false);
+  const deliveryFee = DEFAULT_DELIVERY_FEE;
+  const freeThreshold = generalSettings.freeDeliveryThreshold;
+  const stores = STORES;
   const {
     cart,
     isCartOpen,
@@ -26,10 +29,14 @@ export default function CartDrawer() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [store, setStore] = useState(STORES[0].id);
+  const [store, setStore] = useState("");
   const [isShaking, setIsShaking] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    if (stores.length > 0) setStore(stores[0].id);
+  }, [stores]);
+
   if (!mounted) return null;
 
   const handlePlaceOrder = () => {
@@ -54,10 +61,10 @@ export default function CartDrawer() {
     const fulfillment =
       mode === "delivery"
         ? `🛵 *Delivery*\nAddress: ${address}`
-        : `🏪 *Pickup*\nStore: ${STORES.find((s) => s.id === store)?.label}`;
+        : `🏪 *Pickup*\nStore: ${stores.find((s) => s.id === store)?.label}`;
 
-    const isFreeDelivery = totalPrice >= FREE_DELIVERY_THRESHOLD;
-    const currentDeliveryFee = mode === "delivery" && !isFreeDelivery ? DELIVERY_FEE : 0;
+    const isFreeDelivery = totalPrice >= freeThreshold;
+    const currentDeliveryFee = mode === "delivery" && !isFreeDelivery ? deliveryFee : 0;
     const finalTotal = totalPrice + currentDeliveryFee;
 
     const message =
@@ -121,13 +128,18 @@ export default function CartDrawer() {
               {cart.map((item) => (
                 <li key={item.id} className="flex gap-4 border-b border-[#4B2E2E]/5 pb-6">
                   <div className="relative">
-                    <Image
-                      src={item.image || "/placeholder.png"}
-                      alt={item.name}
-                      width={80}
-                      height={80}
-                      className="rounded-2xl object-cover bg-[#FDF4F6] border border-[#4B2E2E]/5"
-                    />
+                    <div className="w-20 h-20 relative bg-[#FDF4F6] rounded-2xl overflow-hidden border border-[#4B2E2E]/5">
+                      {item.image ? (
+                         <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-contain"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-4xl">🧋</div>
+                      )}
+                    </div>
                   </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-start">
@@ -226,9 +238,9 @@ export default function CartDrawer() {
             )}
 
             {/* Pickup: store selector */}
-            {mode === "pickup" && (
+            {mode === "pickup" && stores.length > 0 && (
               <div className="grid grid-cols-2 gap-2">
-                {STORES.map((s) => (
+                {stores.map((s) => (
                   <button
                     key={s.id}
                     onClick={() => setStore(s.id)}
@@ -251,7 +263,7 @@ export default function CartDrawer() {
               <div className="flex justify-between items-center mb-2 px-1">
                 <span className="text-[10px] font-bold text-[#4B2E2E]/60 uppercase tracking-widest">Delivery Fee</span>
                 <span className="font-black text-sm text-[#4B2E2E]">
-                  {totalPrice >= FREE_DELIVERY_THRESHOLD ? "FREE" : `D${DELIVERY_FEE}`}
+                  {totalPrice >= freeThreshold ? "FREE" : `D${deliveryFee}`}
                 </span>
               </div>
             )}
@@ -259,7 +271,7 @@ export default function CartDrawer() {
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-[#4B2E2E]/40 uppercase tracking-widest">Total</span>
                 <span className="font-black text-xl text-[#4B2E2E] leading-none">
-                  D{(totalPrice + (mode === "delivery" && totalPrice < FREE_DELIVERY_THRESHOLD ? DELIVERY_FEE : 0)).toFixed(0)}
+                  D{(totalPrice + (mode === "delivery" && totalPrice < freeThreshold ? deliveryFee : 0)).toFixed(0)}
                 </span>
               </div>
               <button

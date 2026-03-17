@@ -1,9 +1,8 @@
 "use client";
 import { useState, use } from "react";
-import { drinks } from "@/components/drink/drinks";
-import { getActiveDrinks } from "@/utils/seasonalFilter";
-import { toppings } from "@/app/data/toppings";
-import { sizes, sweetnessLevels, iceLevels } from "@/app/data/options";
+import { drinks as localDrinks } from "@/app/data/drinks";
+import { toppings as localToppings } from "@/app/data/toppings";
+import { sizes as localSizes } from "@/app/data/options";
 import { useCart } from "@/components/context/CartContext";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
@@ -15,31 +14,49 @@ export default function DrinkPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
-  const activeDrinks = getActiveDrinks(drinks);
-  const drink: any = activeDrinks.find((d) => d.slug === slug);
+  const drink = localDrinks.find(d => d.slug === slug);
+  const availableToppings = localToppings;
+  const availableSizes = localSizes;
   const { addToCart } = useCart() as any;
   const router = useRouter();
 
-  const [size, setSize] = useState(sizes[0]);
+  const [size, setSize] = useState<any>(localSizes[0] || null);
   const [sweetness, setSweetness] = useState("100%");
   const [ice, setIce] = useState("Regular Ice");
-  const [selectedTopping, setSelectedTopping] = useState<
-    (typeof toppings)[0] | null
-  >(null);
+  const [selectedTopping, setSelectedTopping] = useState<any>(null);
   const [added, setAdded] = useState(false);
   const [isShaking, setIsShaking] = useState(false);
 
-  if (!drink) return <div className="p-10">Drink not found</div>;
+  const loading = false;
 
-  const toppingsPrice = selectedTopping ? selectedTopping.price : 0;
-  const total = (drink.price || 0) + (size.price || 0) + toppingsPrice;
+  const sweetnessLevels = ["0%", "25%", "50%", "75%", "100%"];
+  const iceLevels = ["No Ice", "Less Ice", "Regular Ice"];
+
+  if (loading) return (
+    <div className="min-h-screen bg-[#FDF4F6] flex items-center justify-center">
+      <div className="text-[#4B2E2E] font-black text-2xl animate-pulse">Brewing your tea...</div>
+    </div>
+  );
+
+  if (!drink) return (
+    <div className="min-h-screen bg-[#FDF4F6] flex flex-col items-center justify-center gap-6">
+      <h1 className="text-4xl font-black text-[#4B2E2E]">Drink not found</h1>
+      <button onClick={() => router.push('/menu')} className="bg-[#4B2E2E] text-white px-8 py-3 rounded-full font-bold">
+        Back to Menu
+      </button>
+    </div>
+  );
+
+  const categoryName = drink.category?.name;
+  const toppingsPrice = selectedTopping ? (selectedTopping.price || 0) : 0;
+  const total = (drink.price || 0) + (size?.price || 0) + toppingsPrice;
 
   const handleAddToCart = () => {
     addToCart({
-      id: `${drink.id}-${size.name}-${selectedTopping?.id || "no-topping"}`,
+      id: `${drink.id}-${size?.name || 'Reg'}-${selectedTopping?.id || "no-topping"}`,
       name: drink.name,
       image: drink.image,
-      size: size.name,
+      size: size?.name || 'Regular',
       sweetness,
       ice,
       toppings: selectedTopping ? [selectedTopping] : [],
@@ -70,25 +87,27 @@ export default function DrinkPage({
           <div className="relative flex flex-col items-center">
             <div className="absolute w-72 h-72 bg-pink-200 rounded-full blur-3xl opacity-40 top-10" />
             <div className="relative z-10 w-full max-w-sm">
-              <Image
-                src={drink.image}
-                alt={drink.name}
-                width={420}
-                height={420}
-                className="object-contain drop-shadow-2xl hover:scale-105 transition duration-500"
-              />
+              {drink.image && (
+                <Image
+                  src={drink.image}
+                  alt={drink.name}
+                  width={420}
+                  height={420}
+                  className="object-contain drop-shadow-2xl hover:scale-105 transition duration-500"
+                />
+              )}
             </div>
             <div className="relative z-10 flex items-center gap-1 mt-4">
               {[...Array(5)].map((_, i) => (
                 <span
                   key={i}
-                  className={`text-xl ${i < Math.floor((drink as any).rating || 4) ? "text-yellow-400" : "text-gray-300"}`}
+                  className={`text-xl ${i < Math.floor(drink.rating || 4) ? "text-yellow-400" : "text-gray-300"}`}
                 >
                   ★
                 </span>
               ))}
               <span className="text-sm text-gray-500 ml-1">
-                ({(drink as any).rating || 4.5})
+                ({drink.rating || 4.5})
               </span>
             </div>
           </div>
@@ -97,7 +116,7 @@ export default function DrinkPage({
           <div className="flex flex-col gap-6">
             <div>
               <span className="text-[#E88997] uppercase tracking-widest text-sm font-semibold">
-                {drink.category || "Bubble Tea"}
+                {categoryName || "Bubble Tea"}
               </span>
               <h1 className="text-5xl font-extrabold text-[#4B2E2E] mt-1 leading-tight">
                 {drink.name}
@@ -106,36 +125,38 @@ export default function DrinkPage({
                 {drink.description}
               </p>
               <p className="text-[#E88997] text-3xl font-bold mt-3">
-                D{drink.price.toFixed(2)}
+                D{drink.price?.toFixed(2)}
               </p>
             </div>
 
             {/* Size */}
-            <div>
-              <h2 className="text-lg font-bold text-[#4B2E2E] mb-3">
-                Choose Size
-              </h2>
-              <div className="flex gap-3 flex-wrap">
-                {sizes.map((s) => (
-                  <button
-                    key={s.name}
-                    onClick={() => setSize(s)}
-                    className={`px-5 py-2.5 rounded-full font-semibold border-2 transition ${
-                      size.name === s.name
-                        ? "bg-[#4B2E2E] text-white border-[#4B2E2E] shadow-lg scale-105"
-                        : "bg-white text-[#4B2E2E] border-pink-200 hover:border-[#4B2E2E]"
-                    }`}
-                  >
-                    {s.name}
-                    {s.price > 0 && (
-                      <span className="ml-1 text-xs opacity-70">
-                        +D{s.price}
-                      </span>
-                    )}
-                  </button>
-                ))}
+            {availableSizes.length > 0 && (
+              <div>
+                <h2 className="text-lg font-bold text-[#4B2E2E] mb-3">
+                  Choose Size
+                </h2>
+                <div className="flex gap-3 flex-wrap">
+                  {availableSizes.map((s) => (
+                    <button
+                      key={s.name}
+                      onClick={() => setSize(s)}
+                      className={`px-5 py-2.5 rounded-full font-semibold border-2 transition ${
+                        size?.name === s.name
+                          ? "bg-[#4B2E2E] text-white border-[#4B2E2E] shadow-lg scale-105"
+                          : "bg-white text-[#4B2E2E] border-pink-200 hover:border-[#4B2E2E]"
+                      }`}
+                    >
+                      {s.name}
+                      {s.price > 0 && (
+                        <span className="ml-1 text-xs opacity-70">
+                          +D{s.price}
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Sweetness & Ice */}
             <div className="grid grid-cols-2 gap-4">
@@ -170,55 +191,57 @@ export default function DrinkPage({
             </div>
 
             {/* Toppings — single select */}
-            <div>
-              <h2 className="text-lg font-bold text-[#4B2E2E] mb-3">
-                🧋 Topping{" "}
-                <span className="text-sm font-normal text-gray-400">
-                  (pick one)
-                </span>
-              </h2>
-              <div className="grid grid-cols-2 gap-2">
-                {toppings.map((t) => {
-                  const isSelected = selectedTopping?.id === t.id;
-                  return (
-                    <button
-                      key={t.id}
-                      onClick={() => setSelectedTopping(isSelected ? null : t)}
-                      className={`flex items-center justify-between px-4 py-3 rounded-xl border-2 font-medium transition ${
-                        isSelected
-                          ? "bg-[#4B2E2E] text-white border-[#4B2E2E] shadow-md"
-                          : "bg-white text-[#4B2E2E] border-pink-200 hover:border-[#4B2E2E]"
-                      }`}
-                    >
-                      <span>{t.name}</span>
-                      <span
-                        className={`text-sm ${isSelected ? "text-pink-200" : "text-[#E88997]"}`}
+            {availableToppings.length > 0 && (
+              <div>
+                <h2 className="text-lg font-bold text-[#4B2E2E] mb-3">
+                  🧋 Topping{" "}
+                  <span className="text-sm font-normal text-gray-400">
+                    (pick one)
+                  </span>
+                </h2>
+                <div className="grid grid-cols-2 gap-2">
+                  {availableToppings.map((t) => {
+                    const isSelected = selectedTopping?.name === t.name;
+                    return (
+                      <button
+                        key={t.name}
+                        onClick={() => setSelectedTopping(isSelected ? null : t)}
+                        className={`flex items-center justify-between px-4 py-3 rounded-xl border-2 font-medium transition ${
+                          isSelected
+                            ? "bg-[#4B2E2E] text-white border-[#4B2E2E] shadow-md"
+                            : "bg-white text-[#4B2E2E] border-pink-200 hover:border-[#4B2E2E]"
+                        }`}
                       >
-                        +D{t.price.toFixed(2)}
-                      </span>
-                    </button>
-                  );
-                })}
+                        <span>{t.name}</span>
+                        <span
+                          className={`text-sm ${isSelected ? "text-pink-200" : "text-[#E88997]"}`}
+                        >
+                          +D{(t.price || 0).toFixed(2)}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Total + Add to Cart */}
             <div className="bg-white rounded-2xl p-5 shadow-md border border-pink-100">
               <div className="flex flex-col gap-1 mb-4 text-sm text-gray-500">
                 <div className="flex justify-between">
                   <span>Base price</span>
-                  <span>D{drink.price.toFixed(2)}</span>
+                  <span>D{drink.price?.toFixed(2)}</span>
                 </div>
-                {size.price > 0 && (
+                {size?.price > 0 && (
                   <div className="flex justify-between">
                     <span>Size ({size.name})</span>
-                    <span>+D{size.price.toFixed(2)}</span>
+                    <span>+D{(size.price || 0).toFixed(2)}</span>
                   </div>
                 )}
                 {selectedTopping && (
                   <div className="flex justify-between">
                     <span>{selectedTopping.name}</span>
-                    <span>+D{selectedTopping.price.toFixed(2)}</span>
+                    <span>+D{(selectedTopping.price || 0).toFixed(2)}</span>
                   </div>
                 )}
                 <div className="border-t pt-2 mt-1 flex justify-between font-bold text-[#4B2E2E] text-lg">

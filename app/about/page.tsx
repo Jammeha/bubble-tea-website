@@ -41,7 +41,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-[#E88997] rounded-3xl rotate-3 group-hover:rotate-1 transition-transform duration-500 shadow-xl" />
               <div className="relative bg-white p-4 rounded-3xl shadow-lg">
                 <Image
-                  src="/strawberryfruit.png"
+                  src="/classic.png"
                   alt="Crafting Bubble Tea"
                   width={600}
                   height={600}
