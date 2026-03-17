@@ -4,8 +4,11 @@ import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import { Leaf, Coffee, Sparkles, Heart } from "lucide-react";
+import { generalSettings as content } from "@/app/data/general";
 
 export default function AboutPage() {
+  const loading = false;
+
   return (
     <>
       <div className="bg-[#FDF4F6] min-h-screen font-sans">
@@ -18,7 +21,7 @@ export default function AboutPage() {
           
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <h2 className="text-[#E88997] uppercase tracking-[0.3em] font-bold text-sm mb-4">
-              Our Essence
+              {content?.aboutEssence || "Our Essence"}
             </h2>
             <h1 className="text-6xl md:text-7xl font-extrabold text-[#4B2E2E] leading-tight">
               Happiness in <span className="text-[#E88997]">Every Sip</span>
@@ -38,7 +41,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-[#E88997] rounded-3xl rotate-3 group-hover:rotate-1 transition-transform duration-500 shadow-xl" />
               <div className="relative bg-white p-4 rounded-3xl shadow-lg">
                 <Image
-                  src="/classic.png"
+                  src="/strawberryfruit.png"
                   alt="Crafting Bubble Tea"
                   width={600}
                   height={600}
@@ -50,19 +53,25 @@ export default function AboutPage() {
 
           <div className="order-1 lg:order-2 space-y-8">
             <h2 className="text-4xl font-black text-[#4B2E2E]">Our Journey</h2>
-            <div className="space-y-6 text-[#6B4B4B] text-lg leading-relaxed">
-              <p>
-                Bubbles was born from a simple passion: to bring the authentic, 
-                premium bubble tea experience to the heart of the Gambia. What started 
-                as a dream of finding the perfect &quot;chew&quot; in a pearl has grown 
-                into a community of tea lovers.
-              </p>
-              <p>
-                Every morning, we brew high-grade tea leaves and prepare our 
-                signature toppings from scratch. For us, quality is non-negotiable. 
-                Whether you visit us at **Tropic Mall** or **Latrikunda**, you&apos;re 
-                stepping into a world where flavor meets craft.
-              </p>
+            <div className="space-y-6 text-[#6B4B4B] text-lg leading-relaxed whitespace-pre-line">
+              {content?.aboutStory ? (
+                <p>{content.aboutStory}</p>
+              ) : (
+                <>
+                  <p>
+                    Bubbles was born from a simple passion: to bring the authentic, 
+                    premium bubble tea experience to the heart of the Gambia. What started 
+                    as a dream of finding the perfect &quot;chew&quot; in a pearl has grown 
+                    into a community of tea lovers.
+                  </p>
+                  <p>
+                    Every morning, we brew high-grade tea leaves and prepare our 
+                    signature toppings from scratch. For us, quality is non-negotiable. 
+                    Whether you visit us at **Tropic Mall** or **Latrikunda**, you&apos;re 
+                    stepping into a world where flavor meets craft.
+                  </p>
+                </>
+              )}
             </div>
             <div className="pt-4">
               <Link href="/menu">
