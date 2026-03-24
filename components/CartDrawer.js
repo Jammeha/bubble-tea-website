@@ -5,6 +5,7 @@ import { useCart } from "./context/CartContext";
 import { STORES } from "@/constants/locations";
 import { generalSettings } from "@/app/data/general";
 import Image from "next/image";
+import Receipt from "./Receipt";
 
 const DEFAULT_DELIVERY_FEE = 300;
 const CONTACT_NUMBER = "2205410593";
@@ -30,6 +31,10 @@ export default function CartDrawer() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [store, setStore] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("cash"); // "cash" | "waychit"
+  const [hasPaid, setHasPaid] = useState(false);
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [lastOrder, setLastOrder] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
 
   useEffect(() => {
@@ -68,16 +73,38 @@ export default function CartDrawer() {
     const finalTotal = totalPrice + currentDeliveryFee;
 
     const message =
-      `🧋 *New Order from Bubbles!*\n\n` +
-      `*Order:*\n${itemLines}\n\n` +
-      (currentDeliveryFee > 0 ? `*Delivery Fee: D${currentDeliveryFee}*\n` : (mode === "delivery" ? `*Delivery Fee: FREE*\n` : "")) +
-      `*Total: D${finalTotal.toFixed(0)}*\n\n` +
+      `🥤 *BUBBLES — NEW ORDER* 🥤\n` +
+      `--------------------------\n` +
+      `*🛒 ORDER:*\n${itemLines}\n` +
+      `--------------------------\n` +
+      (currentDeliveryFee > 0 ? `*🛵 DELIVERY FEE:* D${currentDeliveryFee}\n` : (mode === "delivery" ? `*🛵 DELIVERY FEE:* FREE\n` : "")) +
+      `*💰 TOTAL:* D${finalTotal.toFixed(0)}\n` +
+      `--------------------------\n` +
       `${fulfillment}\n\n` +
-      `*Name:* ${name}\n` +
-      `*Phone:* ${phone}`;
+      `*💳 PAYMENT:* ${paymentMethod === "cash" ? "💵 CASH" : "🌊 WAYCHIT/WAVE"}\n\n` +
+      `*👤 CUSTOMER:*\n` +
+      `Name: ${name}\n` +
+      `Phone: ${phone}`;
+
+    // Set order details for receipt
+    setLastOrder({
+      items: cart,
+      totalPrice,
+      deliveryFee: currentDeliveryFee,
+      finalTotal,
+      paymentMethod,
+      fulfillment: mode,
+      customerName: name,
+      customerPhone: phone,
+      deliveryAddress: mode === "delivery" ? address : null,
+      store: mode === "pickup" ? stores.find((s) => s.id === store)?.label : null
+    });
 
     const url = `https://wa.me/${CONTACT_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
+    
+    // Switch to receipt view
+    setShowReceipt(true);
     setIsCartOpen(false);
   };
 
@@ -226,6 +253,58 @@ export default function CartDrawer() {
               />
             </div>
 
+            {/* Payment Method Selector */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setPaymentMethod("cash");
+                  setHasPaid(false);
+                }}
+                className={`flex-1 py-2 rounded-xl border-2 font-black text-[9px] uppercase tracking-wider transition-all duration-300 ${
+                  paymentMethod === "cash"
+                    ? "bg-[#4B2E2E] text-white border-[#4B2E2E] shadow-md"
+                    : "bg-white text-[#4B2E2E] border-[#4B2E2E]/10 hover:bg-[#FDF4F6]"
+                }`}
+              >
+                💵 Cash
+              </button>
+              <button
+                onClick={() => setPaymentMethod("waychit")}
+                className={`flex-1 py-2 rounded-xl border-2 font-black text-[9px] uppercase tracking-wider transition-all duration-300 ${
+                  paymentMethod === "waychit"
+                    ? "bg-[#4B2E2E] text-white border-[#4B2E2E] shadow-md"
+                    : "bg-white text-[#4B2E2E] border-[#4B2E2E]/10 hover:bg-[#FDF4F6]"
+                }`}
+              >
+                🌊 Waychit/Wave
+              </button>
+            </div>
+
+            {/* Waychit Instructions */}
+            {paymentMethod === "waychit" && (
+              <div className="bg-[#4B2E2E] text-white p-4 rounded-2xl flex flex-col gap-3 shadow-inner">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/10 p-2 rounded-lg">
+                    <span className="text-xl">📱</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest">Payment First</p>
+                    <p className="text-xs font-black">Wave: {generalSettings.waveNumber}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setHasPaid(!hasPaid)}
+                  className={`py-2 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${
+                    hasPaid 
+                      ? "bg-[#25D366] text-white" 
+                      : "bg-white/10 text-white/60 border border-white/10 hover:bg-white/20"
+                  }`}
+                >
+                  {hasPaid ? "✓ Payment Confirmed" : "Confirm I have paid"}
+                </button>
+              </div>
+            )}
+
             {/* Delivery: address field */}
             {mode === "delivery" && (
               <input
@@ -276,7 +355,8 @@ export default function CartDrawer() {
               </div>
               <button
                 onClick={handlePlaceOrder}
-                className={`flex-1 bg-[#25D366] text-white py-3 rounded-full font-bold text-sm hover:bg-[#1ebe57] transition-all flex items-center justify-center gap-2 shadow-lg ${
+                disabled={paymentMethod === "waychit" && !hasPaid}
+                className={`flex-1 bg-[#25D366] text-white py-3 rounded-full font-bold text-sm hover:bg-[#1ebe57] transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed ${
                   isShaking ? "animate-shake" : ""
                 }`}
               >
@@ -286,6 +366,13 @@ export default function CartDrawer() {
           </div>
         )}
       </div>
+
+      {showReceipt && (
+        <Receipt 
+          order={lastOrder} 
+          onClose={() => setShowReceipt(false)} 
+        />
+      )}
     </>
   );
 }
