@@ -56,7 +56,7 @@ const Testimonials = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-12">
-          {testimonials.map((testi, idx) => (
+          {testimonials.map((testi) => (
             <div
               key={testi.id}
               onClick={() => handleCardClick(testi.id)}

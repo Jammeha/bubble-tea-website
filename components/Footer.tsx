@@ -1,5 +1,5 @@
 "use client";
-import { Instagram, Facebook, Music2, Share2, MapPin, Mail, Phone } from "lucide-react";
+import { Instagram, Facebook, Music2, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { STORES } from "../constants/locations";

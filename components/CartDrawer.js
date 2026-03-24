@@ -36,11 +36,6 @@ export default function CartDrawer() {
 
   if (!mounted) return null;
 
-  const handlePlaceOrder = () => {
-    // This function is now mostly handled in the dedicated checkout page
-    // But we keep it here in case the user wants to trigger something from the cart
-    setIsCartOpen(false);
-  };
 
   return (
     <>
@@ -73,7 +68,7 @@ export default function CartDrawer() {
 
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto custom-scrollbar">
-            /* Cart Review */
+            {/* Cart Review */}
             <div className="px-6 py-4 animate-fadeIn">
               {cart.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-20 gap-3 text-[#4B2E2E]/40">
