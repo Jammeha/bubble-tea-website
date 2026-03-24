@@ -49,10 +49,10 @@ export default function CheckoutPage() {
       return alert("Please enter your delivery address.");
 
     const itemLines = cart
-      .map((item) => {
+      .map((item: any) => {
         const toppingText =
           item.toppings && item.toppings.length > 0
-            ? ` + ${item.toppings.map((t) => t.name).join(", ")}`
+            ? ` + ${item.toppings.map((t: any) => t.name).join(", ")}`
             : "";
         return `• ${item.name} (${item.size}, ${item.sweetness} sweet, ${item.ice}${toppingText}) x${item.qty} — D${(item.price * item.qty).toFixed(2)}`;
       })
@@ -61,7 +61,7 @@ export default function CheckoutPage() {
     const fulfillment =
       mode === "delivery"
         ? `🛵 *Delivery*\nAddress: ${address}`
-        : `🏪 *Pickup*\nStore: ${stores.find((s) => s.id === store)?.label}`;
+        : `🏪 *Pickup*\nStore: ${stores.find((s: any) => s.id === store)?.label}`;
 
     const isFreeDelivery = totalPrice >= freeThreshold;
     const currentDeliveryFee = mode === "delivery" && !isFreeDelivery ? deliveryFee : 0;
@@ -92,7 +92,7 @@ export default function CheckoutPage() {
       customerName: name,
       customerPhone: phone,
       deliveryAddress: mode === "delivery" ? address : null,
-      store: mode === "pickup" ? stores.find((s) => s.id === store)?.label : null
+      store: mode === "pickup" ? stores.find((s: any) => s.id === store)?.label : null
     });
 
     const url = `https://wa.me/${CONTACT_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -185,7 +185,7 @@ export default function CheckoutPage() {
                )}
                {mode === "pickup" && (
                   <div className="grid grid-cols-2 gap-3 animate-fadeIn">
-                     {stores.map((s) => (
+                     {stores.map((s: any) => (
                         <button
                           key={s.id}
                           onClick={() => setStore(s.id)}
@@ -264,7 +264,7 @@ export default function CheckoutPage() {
               <h2 className="text-xl font-black uppercase tracking-tighter text-[#4B2E2E] mb-6">Order Summary</h2>
               
               <div className="space-y-6 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">
-                 {cart.map((item) => (
+                 {cart.map((item: any) => (
                     <div key={item.id} className="flex gap-4 border-b border-[#4B2E2E]/5 pb-6 last:border-0 last:pb-0">
                        <div className="w-16 h-16 relative bg-[#FDF4F6] rounded-2xl overflow-hidden flex-shrink-0">
                           {item.image ? (
