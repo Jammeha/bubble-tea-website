@@ -33,6 +33,8 @@ export default function CartDrawer() {
   const [store, setStore] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash"); // "cash" | "waychit"
   const [hasPaid, setHasPaid] = useState(false);
+  const [transactionId, setTransactionId] = useState("");
+  const [showPaymentSection, setShowPaymentSection] = useState(false);
   const [showReceipt, setShowReceipt] = useState(false);
   const [lastOrder, setLastOrder] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
@@ -81,8 +83,9 @@ export default function CartDrawer() {
       `*💰 TOTAL:* D${finalTotal.toFixed(0)}\n` +
       `--------------------------\n` +
       `${fulfillment}\n\n` +
-      `*💳 PAYMENT:* ${paymentMethod === "cash" ? "💵 CASH" : "🌊 WAYCHIT/WAVE"}\n\n` +
-      `*👤 CUSTOMER:*\n` +
+      `*💳 PAYMENT:* ${paymentMethod === "cash" ? "💵 CASH" : "🌊 WAYCHIT/WAVE"}\n` +
+      (paymentMethod === "waychit" ? `*🆔 TRANS-ID:* ${transactionId}\n` : "") +
+      `\n*👤 CUSTOMER:*\n` +
       `Name: ${name}\n` +
       `Phone: ${phone}`;
 
@@ -235,75 +238,29 @@ export default function CartDrawer() {
               </button>
             </div>
 
-            {/* Shared Fields — Compact Grid */}
-            <div className="grid grid-cols-2 gap-2">
+            {/* Step 1: Customer Details */}
+            <div className="grid grid-cols-2 gap-2 animate-fadeIn">
               <input
                 type="text"
-                placeholder="Name"
+                placeholder="Full Name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  if (!e.target.value.trim()) setShowPaymentSection(false);
+                }}
                 className="bg-white border-2 border-[#4B2E2E]/5 p-2 rounded-xl w-full text-xs text-[#4B2E2E] focus:outline-none focus:border-[#4B2E2E] placeholder:text-[#4B2E2E]/20 font-medium"
               />
               <input
                 type="tel"
-                placeholder="Phone"
+                placeholder="Phone Number"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                  if (!e.target.value.trim()) setShowPaymentSection(false);
+                }}
                 className="bg-white border-2 border-[#4B2E2E]/5 p-2 rounded-xl w-full text-xs text-[#4B2E2E] focus:outline-none focus:border-[#4B2E2E] placeholder:text-[#4B2E2E]/20 font-medium"
               />
             </div>
-
-            {/* Payment Method Selector */}
-            <div className="flex gap-2">
-              <button
-                onClick={() => {
-                  setPaymentMethod("cash");
-                  setHasPaid(false);
-                }}
-                className={`flex-1 py-2 rounded-xl border-2 font-black text-[9px] uppercase tracking-wider transition-all duration-300 ${
-                  paymentMethod === "cash"
-                    ? "bg-[#4B2E2E] text-white border-[#4B2E2E] shadow-md"
-                    : "bg-white text-[#4B2E2E] border-[#4B2E2E]/10 hover:bg-[#FDF4F6]"
-                }`}
-              >
-                💵 Cash
-              </button>
-              <button
-                onClick={() => setPaymentMethod("waychit")}
-                className={`flex-1 py-2 rounded-xl border-2 font-black text-[9px] uppercase tracking-wider transition-all duration-300 ${
-                  paymentMethod === "waychit"
-                    ? "bg-[#4B2E2E] text-white border-[#4B2E2E] shadow-md"
-                    : "bg-white text-[#4B2E2E] border-[#4B2E2E]/10 hover:bg-[#FDF4F6]"
-                }`}
-              >
-                🌊 Waychit/Wave
-              </button>
-            </div>
-
-            {/* Waychit Instructions */}
-            {paymentMethod === "waychit" && (
-              <div className="bg-[#4B2E2E] text-white p-4 rounded-2xl flex flex-col gap-3 shadow-inner">
-                <div className="flex items-center gap-3">
-                  <div className="bg-white/10 p-2 rounded-lg">
-                    <span className="text-xl">📱</span>
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest">Payment First</p>
-                    <p className="text-xs font-black">Wave: {generalSettings.waveNumber}</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setHasPaid(!hasPaid)}
-                  className={`py-2 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${
-                    hasPaid 
-                      ? "bg-[#25D366] text-white" 
-                      : "bg-white/10 text-white/60 border border-white/10 hover:bg-white/20"
-                  }`}
-                >
-                  {hasPaid ? "✓ Payment Confirmed" : "Confirm I have paid"}
-                </button>
-              </div>
-            )}
 
             {/* Delivery: address field */}
             {mode === "delivery" && (
@@ -312,8 +269,81 @@ export default function CartDrawer() {
                 placeholder="Delivery Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="bg-white border-2 border-[#4B2E2E]/5 p-2 rounded-xl w-full text-xs text-[#4B2E2E] focus:outline-none focus:border-[#4B2E2E] placeholder:text-[#4B2E2E]/20 font-medium"
+                className="bg-white border-2 border-[#4B2E2E]/5 p-2 rounded-xl w-full text-xs text-[#4B2E2E] focus:outline-none focus:border-[#4B2E2E] placeholder:text-[#4B2E2E]/20 font-medium animate-fadeIn"
               />
+            )}
+
+            {!showPaymentSection ? (
+              <button
+                onClick={() => {
+                  if (!name.trim() || !phone.trim() || (mode === "delivery" && !address.trim())) {
+                    return alert("Please fill in your details first.");
+                  }
+                  setShowPaymentSection(true);
+                }}
+                className="bg-[#4B2E2E] text-white py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:opacity-90 transition-all shadow-md"
+              >
+                Proceed to Payment
+              </button>
+            ) : (
+              <div className="flex flex-col gap-3 animate-slideUp">
+                {/* Payment Method Selector */}
+                <div className="flex gap-2 p-1 bg-white rounded-xl border-2 border-[#4B2E2E]/10">
+                  <button
+                    onClick={() => {
+                      setPaymentMethod("cash");
+                      setHasPaid(false);
+                    }}
+                    className={`flex-1 py-1.5 rounded-lg font-black text-[9px] uppercase tracking-wider transition-all duration-300 ${
+                      paymentMethod === "cash"
+                        ? "bg-[#4B2E2E] text-white shadow-md"
+                        : "text-[#4B2E2E] hover:bg-[#FDF4F6]"
+                    }`}
+                  >
+                    💵 Cash
+                  </button>
+                  <button
+                    onClick={() => setPaymentMethod("waychit")}
+                    className={`flex-1 py-1.5 rounded-lg font-black text-[9px] uppercase tracking-wider transition-all duration-300 ${
+                      paymentMethod === "waychit"
+                        ? "bg-[#4B2E2E] text-white shadow-md"
+                        : "text-[#4B2E2E] hover:bg-[#FDF4F6]"
+                    }`}
+                  >
+                    🌊 Waychit
+                  </button>
+                </div>
+
+                {/* Waychit Instructions */}
+                {paymentMethod === "waychit" && !hasPaid && (
+                  <div className="bg-[#4B2E2E] text-white p-5 rounded-2xl flex flex-col gap-4 shadow-xl border-2 border-white/10">
+                    <div className="text-center">
+                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-1">Send Wave to:</p>
+                       <p className="text-lg font-black text-[#F7D9DC]">{generalSettings.waveNumber}</p>
+                       <p className="text-[10px] text-white/60 mt-1 font-bold uppercase italic">Amount: D{(totalPrice + (mode === "delivery" && totalPrice < freeThreshold ? deliveryFee : 0)).toFixed(0)}</p>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <input
+                        type="text"
+                        placeholder="Enter Transaction ID"
+                        value={transactionId}
+                        onChange={(e) => setTransactionId(e.target.value)}
+                        className="bg-white/10 border border-white/20 p-3 rounded-xl w-full text-xs text-white focus:outline-none focus:border-[#E88997] placeholder:text-white/20 font-mono text-center"
+                      />
+                      <button
+                        onClick={() => {
+                          if (!transactionId.trim()) return alert("Please enter your Wave Transaction ID.");
+                          setHasPaid(true);
+                        }}
+                        className="w-full bg-[#E88997] text-[#4B2E2E] py-2.5 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-white transition-all shadow-lg"
+                      >
+                        Verify Payment
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
 
             {/* Pickup: store selector */}
@@ -355,7 +385,7 @@ export default function CartDrawer() {
               </div>
               <button
                 onClick={handlePlaceOrder}
-                disabled={paymentMethod === "waychit" && !hasPaid}
+                disabled={!showPaymentSection || (paymentMethod === "waychit" && !hasPaid)}
                 className={`flex-1 bg-[#25D366] text-white py-3 rounded-full font-bold text-sm hover:bg-[#1ebe57] transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed ${
                   isShaking ? "animate-shake" : ""
                 }`}
