@@ -13,7 +13,7 @@ const CONTACT_NUMBER = "2205410593";
 
 export default function CheckoutPage() {
   const [mounted, setMounted] = useState(false);
-  const { cart, totalPrice, setIsCartOpen } = useCart();
+  const { cart, totalPrice, setIsCartOpen } = useCart() as any;
   const deliveryFee = DEFAULT_DELIVERY_FEE;
   const freeThreshold = generalSettings.freeDeliveryThreshold;
   const stores = STORES;
