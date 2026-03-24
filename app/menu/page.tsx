@@ -12,7 +12,7 @@ export default function MenuPage() {
   const categories = localCategories;
   const drinks = localDrinks;
   const [addedId, setAddedId] = useState<string | null>(null);
-  const { addToCart } = useCart() as any;
+  const { addToCart, setIsCartOpen } = useCart() as any;
 
   // Simulate loading if desired, but here we can just show data
   const loading = false;
@@ -67,6 +67,7 @@ export default function MenuPage() {
       qty: 1,
     });
 
+    setIsCartOpen(true);
     setAddedId(drink.id);
     setTimeout(() => setAddedId(null), 2000);
   };
