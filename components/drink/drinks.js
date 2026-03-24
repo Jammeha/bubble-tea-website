@@ -252,7 +252,7 @@ export const drinks = [
     name: "Café Au Lait",
     slug: "cafe-au-lait",
     price: 270,
-    image: "/Holiday.png",
+    image: "/Holidays.png",
     category: "coffee",
   },
   {
@@ -268,7 +268,7 @@ export const drinks = [
     name: "Tropical Berry Smoothie",
     slug: "tropical-berry-smoothie",
     price: 320,
-    image: "/smoothies-removebg-preview.png",
+    image: "/smoothies.png",
     category: "smoothies",
   },
   {
