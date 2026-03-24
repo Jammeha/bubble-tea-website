@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { useCart } from "@/components/context/CartContext";
 
@@ -52,7 +53,7 @@ export default function CartPage() {
                     -
                   </button>
 
-                  <span>{item.quantity}</span>
+                  <span>{item.qty || 1}</span>
 
                   <button
                     onClick={() => increaseQty(item.id)}
@@ -78,9 +79,12 @@ export default function CartPage() {
                 Total: D{totalPrice}
               </h2>
 
-              <button className="mt-6 bg-[#4B2E2E] text-white px-8 py-3 rounded-full hover:bg-[#5C3B3B]">
+              <Link 
+                href="/checkout"
+                className="inline-block mt-6 bg-[#4B2E2E] text-white px-8 py-3 rounded-full hover:bg-[#E88997] transition-all font-black uppercase text-xs tracking-widest shadow-lg"
+              >
                 Checkout
-              </button>
+              </Link>
             </div>
           </div>
         )}
