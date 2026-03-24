@@ -31,8 +31,7 @@ export default function CartDrawer() {
 
   useEffect(() => {
     setMounted(true);
-    if (stores.length > 0) setStore(stores[0].id);
-  }, [stores]);
+  }, []);
 
   if (!mounted) return null;
 
