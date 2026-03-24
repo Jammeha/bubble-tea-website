@@ -2,7 +2,8 @@ export const generalSettings = {
   specialOfferTexts: [
     "Get 15% off your first order with code BUBBLES15! ✨",
     "Free Delivery on orders over D3000! 🛵",
-    "Bubble Tea & Waffles — The Perfect Pair! 🧋✨"
+    "Bubble Tea & Waffles — The Perfect Pair! 🧋✨",
+    "Join our Rewards Program to earn free drinks! 🎁"
   ],
   freeDeliveryThreshold: 3000,
   aboutEssence: "Our Essence",
