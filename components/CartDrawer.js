@@ -73,12 +73,13 @@ export default function CartDrawer() {
                 <div className="flex flex-col items-center justify-center py-20 gap-3 text-[#4B2E2E]/40">
                   <span className="text-5xl">🧋</span>
                   <p className="text-lg font-black uppercase tracking-tighter text-[#4B2E2E]">Your cart is empty!</p>
-                  <button
+                  <Link
+                    href="/menu"
                     onClick={() => setIsCartOpen(false)}
-                    className="mt-2 bg-[#4B2E2E] text-white px-8 py-3 rounded-full hover:bg-[#E88997] transition-all font-black uppercase text-xs tracking-widest shadow-lg"
+                    className="mt-2 bg-[#4B2E2E] text-white px-8 py-3 rounded-full hover:bg-[#E88997] transition-all font-black uppercase text-xs tracking-widest shadow-lg inline-block"
                   >
                     Browse Menu
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 <>
