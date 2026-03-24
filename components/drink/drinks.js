@@ -276,7 +276,7 @@ export const drinks = [
     name: "Strawberry Berry Smoothie",
     slug: "strawberry-berry-smoothie",
     price: 330,
-    image: "/stu.png",
+    image: "/stuo.png",
     category: "smoothies",
   },
 ];
