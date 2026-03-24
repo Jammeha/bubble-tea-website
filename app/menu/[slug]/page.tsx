@@ -7,6 +7,7 @@ import { useCart } from "@/components/context/CartContext";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function DrinkPage({
   params,
@@ -249,18 +250,23 @@ export default function DrinkPage({
                   <span>D{total.toFixed(2)}</span>
                 </div>
               </div>
-              <button
-                onClick={handleAddToCart}
-                className={`w-full py-4 rounded-full font-bold text-lg transition-all duration-300 ${
-                  isShaking ? "animate-shake" : ""
-                } ${
-                  added
-                    ? "bg-green-500 text-white scale-95"
-                    : "bg-[#4B2E2E] text-white hover:bg-[#5C3B3B] hover:scale-105 shadow-lg"
-                }`}
-              >
-                {added ? "✓ Added to Cart!" : "Add to Cart 🧋"}
-              </button>
+                {added ? (
+                  <Link
+                    href="/checkout"
+                    className="w-full py-4 rounded-full font-bold text-lg bg-[#E88997] text-[#4B2E2E] hover:bg-white transition-all duration-300 shadow-lg flex items-center justify-center gap-2 animate-fadeIn"
+                  >
+                    Proceed to Checkout 🥤
+                  </Link>
+                ) : (
+                  <button
+                    onClick={handleAddToCart}
+                    className={`w-full py-4 rounded-full font-bold text-lg transition-all duration-300 ${
+                      isShaking ? "animate-shake" : ""
+                    } bg-[#4B2E2E] text-white hover:bg-[#5C3B3B] hover:scale-105 shadow-lg`}
+                  >
+                    Add to Cart 🧋
+                  </button>
+                )}
             </div>
           </div>
         </div>
