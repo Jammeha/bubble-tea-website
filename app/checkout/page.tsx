@@ -27,7 +27,7 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("cash"); // "cash" | "waychit"
   const [hasPaid, setHasPaid] = useState(false);
   const [showReceipt, setShowReceipt] = useState(false);
-  const [lastOrder, setLastOrder] = useState(null);
+  const [lastOrder, setLastOrder] = useState<any>(null);
   const [isShaking, setIsShaking] = useState(false);
 
   useEffect(() => {
