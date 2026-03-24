@@ -33,7 +33,6 @@ export default function CartDrawer() {
   const [store, setStore] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash"); // "cash" | "waychit"
   const [hasPaid, setHasPaid] = useState(false);
-  const [transactionId, setTransactionId] = useState("");
   const [showPaymentSection, setShowPaymentSection] = useState(false);
   const [showReceipt, setShowReceipt] = useState(false);
   const [lastOrder, setLastOrder] = useState(null);
@@ -84,7 +83,6 @@ export default function CartDrawer() {
       `--------------------------\n` +
       `${fulfillment}\n\n` +
       `*💳 PAYMENT:* ${paymentMethod === "cash" ? "💵 CASH" : "🌊 WAYCHIT/WAVE"}\n` +
-      (paymentMethod === "waychit" ? `*🆔 TRANS-ID:* ${transactionId}\n` : "") +
       `\n*👤 CUSTOMER:*\n` +
       `Name: ${name}\n` +
       `Phone: ${phone}`;
@@ -316,31 +314,50 @@ export default function CartDrawer() {
 
                 {/* Waychit Instructions */}
                 {paymentMethod === "waychit" && !hasPaid && (
-                  <div className="bg-[#4B2E2E] text-white p-5 rounded-2xl flex flex-col gap-4 shadow-xl border-2 border-white/10">
-                    <div className="text-center">
+                  <div className="bg-[#4B2E2E] text-white p-5 rounded-2xl flex flex-col gap-4 shadow-xl border-2 border-white/10 animate-fadeIn">
+                    <div className="text-center space-y-1">
                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-1">Send Wave to:</p>
-                       <p className="text-lg font-black text-[#F7D9DC]">{generalSettings.waveNumber}</p>
-                       <p className="text-[10px] text-white/60 mt-1 font-bold uppercase italic">Amount: D{(totalPrice + (mode === "delivery" && totalPrice < freeThreshold ? deliveryFee : 0)).toFixed(0)}</p>
+                       <div className="flex items-center justify-center gap-2">
+                         <p className="text-xl font-black text-[#F7D9DC] tracking-wider">{generalSettings.waveNumber}</p>
+                         <button 
+                           onClick={() => {
+                             navigator.clipboard.writeText(generalSettings.waveNumber);
+                             alert("Wave number copied!");
+                           }}
+                           className="bg-white/10 hover:bg-white/20 p-1.5 rounded-lg transition-colors border border-white/10"
+                           title="Copy Number"
+                         >
+                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                           </svg>
+                         </button>
+                       </div>
+                       
+                       <div className="pt-2 flex flex-col items-center">
+                         <p className="text-[9px] text-white/40 uppercase font-black tracking-widest leading-none">Total Amount</p>
+                         <div className="flex items-center gap-2">
+                           <p className="text-base text-white font-black italic">D{(totalPrice + (mode === "delivery" && totalPrice < freeThreshold ? deliveryFee : 0)).toFixed(0)}</p>
+                           <button 
+                             onClick={() => {
+                               navigator.clipboard.writeText((totalPrice + (mode === "delivery" && totalPrice < freeThreshold ? deliveryFee : 0)).toFixed(0));
+                               alert("Amount copied!");
+                             }}
+                             className="text-white/40 hover:text-white transition-colors"
+                           >
+                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                             </svg>
+                           </button>
+                         </div>
+                       </div>
                     </div>
                     
-                    <div className="space-y-2">
-                      <input
-                        type="text"
-                        placeholder="Enter Transaction ID"
-                        value={transactionId}
-                        onChange={(e) => setTransactionId(e.target.value)}
-                        className="bg-white/10 border border-white/20 p-3 rounded-xl w-full text-xs text-white focus:outline-none focus:border-[#E88997] placeholder:text-white/20 font-mono text-center"
-                      />
-                      <button
-                        onClick={() => {
-                          if (!transactionId.trim()) return alert("Please enter your Wave Transaction ID.");
-                          setHasPaid(true);
-                        }}
-                        className="w-full bg-[#E88997] text-[#4B2E2E] py-2.5 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-white transition-all shadow-lg"
-                      >
-                        Verify Payment
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => setHasPaid(true)}
+                      className="w-full bg-[#E88997] text-[#4B2E2E] py-3.5 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-white hover:scale-[1.02] transition-all shadow-lg border-b-4 border-[#4B2E2E]/20"
+                    >
+                      I have sent the payment
+                    </button>
                   </div>
                 )}
               </div>
