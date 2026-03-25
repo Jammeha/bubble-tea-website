@@ -7,14 +7,13 @@ import { generalSettings } from "@/app/data/general";
 import Image from "next/image";
 import Link from "next/link";
 import Receipt from "@/components/Receipt";
+import { DELIVERY_ZONES } from "@/app/data/deliveryZones";
 
-const DEFAULT_DELIVERY_FEE = 300;
 const CONTACT_NUMBER = "2205410593";
 
 export default function CheckoutPage() {
   const [mounted, setMounted] = useState(false);
   const { cart, totalPrice, setIsCartOpen } = useCart() as any;
-  const deliveryFee = DEFAULT_DELIVERY_FEE;
   const freeThreshold = generalSettings.freeDeliveryThreshold;
   const stores = STORES;
 
@@ -29,6 +28,7 @@ export default function CheckoutPage() {
   const [showReceipt, setShowReceipt] = useState(false);
   const [lastOrder, setLastOrder] = useState<any>(null);
   const [isShaking, setIsShaking] = useState(false);
+  const [selectedZoneId, setSelectedZoneId] = useState(DELIVERY_ZONES[0].id);
 
   useEffect(() => {
     setMounted(true);
@@ -58,14 +58,15 @@ export default function CheckoutPage() {
       })
       .join("\n");
 
+    const activeZone = DELIVERY_ZONES.find((z: any) => z.id === selectedZoneId) || DELIVERY_ZONES[0];
+    const isFreeDelivery = totalPrice >= freeThreshold;
+    const currentDeliveryFee = mode === "delivery" && !isFreeDelivery ? activeZone.fee : 0;
+    const finalTotal = totalPrice + currentDeliveryFee;
+
     const fulfillment =
       mode === "delivery"
-        ? `🛵 *Delivery*\nAddress: ${address}`
+        ? `🛵 *Delivery*\nArea: ${activeZone.label}\nAddress: ${address}`
         : `🏪 *Pickup*\nStore: ${stores.find((s: any) => s.id === store)?.label}`;
-
-    const isFreeDelivery = totalPrice >= freeThreshold;
-    const currentDeliveryFee = mode === "delivery" && !isFreeDelivery ? deliveryFee : 0;
-    const finalTotal = totalPrice + currentDeliveryFee;
 
     const message =
       `🥤 *BUBBLES — NEW ORDER* 🥤\n` +
@@ -92,6 +93,7 @@ export default function CheckoutPage() {
       customerName: name,
       customerPhone: phone,
       deliveryAddress: mode === "delivery" ? address : null,
+      deliveryZone: mode === "delivery" ? activeZone.label : null,
       store: mode === "pickup" ? stores.find((s: any) => s.id === store)?.label : null
     });
 
@@ -102,7 +104,8 @@ export default function CheckoutPage() {
     setShowReceipt(true);
   };
 
-  const currentTotal = totalPrice + (mode === "delivery" && totalPrice < freeThreshold ? deliveryFee : 0);
+  const activeZone = DELIVERY_ZONES.find((z: any) => z.id === selectedZoneId) || DELIVERY_ZONES[0];
+  const currentTotal = totalPrice + (mode === "delivery" && totalPrice < freeThreshold ? activeZone.fee : 0);
 
   if (cart.length === 0 && !showReceipt) {
     return (
@@ -175,13 +178,29 @@ export default function CheckoutPage() {
                   />
                </div>
                {mode === "delivery" && (
-                  <input
-                    type="text"
-                    placeholder="Delivery Address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="bg-[#FDF4F6] border-2 border-transparent focus:border-[#4B2E2E] p-4 rounded-2xl w-full text-sm text-[#4B2E2E] focus:outline-none placeholder:text-[#4B2E2E]/20 font-bold transition-all animate-fadeIn"
-                  />
+                  <div className="space-y-4 animate-fadeIn">
+                    <div className="space-y-2">
+                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#4B2E2E]/30 pl-1">Select Area</p>
+                       <select 
+                         value={selectedZoneId}
+                         onChange={(e) => setSelectedZoneId(e.target.value)}
+                         className="bg-[#FDF4F6] border-2 border-transparent focus:border-[#4B2E2E] p-4 rounded-2xl w-full text-sm text-[#4B2E2E] focus:outline-none font-bold transition-all"
+                       >
+                         {DELIVERY_ZONES.map((zone: any) => (
+                           <option key={zone.id} value={zone.id}>
+                             {zone.label} (D{zone.fee})
+                           </option>
+                         ))}
+                       </select>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Delivery Address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      className="bg-[#FDF4F6] border-2 border-transparent focus:border-[#4B2E2E] p-4 rounded-2xl w-full text-sm text-[#4B2E2E] focus:outline-none placeholder:text-[#4B2E2E]/20 font-bold transition-all"
+                    />
+                  </div>
                )}
                {mode === "pickup" && (
                   <div className="grid grid-cols-2 gap-3 animate-fadeIn">
@@ -287,12 +306,12 @@ export default function CheckoutPage() {
                     <span>Subtotal</span>
                     <span>D{totalPrice.toFixed(0)}</span>
                  </div>
-                 {mode === "delivery" && (
-                    <div className="flex justify-between items-center text-sm font-black uppercase text-[#4B2E2E]/40 tracking-widest animate-fadeIn">
-                       <span>Delivery Fee</span>
-                       <span>{totalPrice >= freeThreshold ? "FREE" : `D${deliveryFee}`}</span>
-                    </div>
-                 )}
+                  {mode === "delivery" && (
+                     <div className="flex justify-between items-center text-sm font-black uppercase text-[#4B2E2E]/40 tracking-widest animate-fadeIn">
+                        <span>Delivery Fee ({activeZone.label})</span>
+                        <span>{totalPrice >= freeThreshold ? "FREE" : `D${activeZone.fee}`}</span>
+                     </div>
+                  )}
                  <div className="flex justify-between items-center pt-4 border-t border-[#4B2E2E]/5">
                     <span className="text-lg font-black uppercase tracking-tighter text-[#4B2E2E]">Total</span>
                     <span className="text-3xl font-black text-[#4B2E2E]">D{currentTotal.toFixed(0)}</span>

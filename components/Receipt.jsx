@@ -83,6 +83,7 @@ export default function Receipt({ order, onClose }) {
           <p className="font-bold uppercase tracking-widest mb-1 text-gray-400">Customer</p>
           <p className="font-black text-[#4B2E2E]">{order.customerName}</p>
           <p>{order.customerPhone}</p>
+          {order.deliveryZone && <p className="mt-1 font-bold text-[#4B2E2E]">Area: {order.deliveryZone}</p>}
           {order.deliveryAddress && <p className="mt-1 italic">{order.deliveryAddress}</p>}
         </div>
 
