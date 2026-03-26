@@ -14,10 +14,10 @@ export const STORES = [
     sub: "Main Highway"
   },
   {
-    id: "branch3",
-    label: "Bubbles Branch 3",
-    address: "Coming Soon...",
-    sub: "New Location"
+    id: "bursubi",
+    label: "Bursubi Phase 1",
+    address: "West Coast Region, The Gambia",
+    sub: "Main Market Road"
   },
   {
     id: "branch4",
