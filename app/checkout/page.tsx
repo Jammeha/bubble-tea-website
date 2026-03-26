@@ -54,7 +54,14 @@ export default function CheckoutPage() {
           item.toppings && item.toppings.length > 0
             ? ` + ${item.toppings.map((t: any) => t.name).join(", ")}`
             : "";
-        return `• ${item.name} (${item.size}, ${item.sweetness} sweet, ${item.ice}${toppingText}) x${item.qty} — D${(item.price * item.qty).toFixed(2)}`;
+        
+        const details = [
+          item.size,
+          item.sweetness !== "N/A" ? `${item.sweetness} sweet` : null,
+          item.ice !== "N/A" ? item.ice : null
+        ].filter(Boolean).join(", ");
+
+        return `• ${item.name} (${details}${toppingText}) x${item.qty} — D${(item.price * item.qty).toFixed(2)}`;
       })
       .join("\n");
 

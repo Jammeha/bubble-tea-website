@@ -58,9 +58,9 @@ export default function DrinkPage({
       name: drink.name,
       image: drink.image,
       size: size?.name || 'Regular',
-      sweetness,
-      ice,
-      toppings: selectedTopping ? [selectedTopping] : [],
+      sweetness: (drink as any).isSnack ? "N/A" : sweetness,
+      ice: (drink as any).isSnack ? "N/A" : ice,
+      toppings: selectedTopping && !(drink as any).isSnack ? [selectedTopping] : [],
       price: total,
       qty: 1,
     });
@@ -160,39 +160,41 @@ export default function DrinkPage({
             )}
 
             {/* Sweetness & Ice */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <h2 className="text-lg font-bold text-[#4B2E2E] mb-2">
-                  🍬 Sweetness
-                </h2>
-                <select
-                  value={sweetness}
-                  onChange={(e) => setSweetness(e.target.value)}
-                  className="w-full p-3 border-2 border-pink-200 rounded-xl bg-white text-[#4B2E2E] font-medium focus:outline-none focus:border-[#4B2E2E]"
-                >
-                  {sweetnessLevels.map((level) => (
-                    <option key={level}>{level}</option>
-                  ))}
-                </select>
+            {!(drink as any).isSnack && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <h2 className="text-lg font-bold text-[#4B2E2E] mb-2">
+                    🍬 Sweetness
+                  </h2>
+                  <select
+                    value={sweetness}
+                    onChange={(e) => setSweetness(e.target.value)}
+                    className="w-full p-3 border-2 border-pink-200 rounded-xl bg-white text-[#4B2E2E] font-medium focus:outline-none focus:border-[#4B2E2E]"
+                  >
+                    {sweetnessLevels.map((level) => (
+                      <option key={level}>{level}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-[#4B2E2E] mb-2">
+                    🧊 Ice Level
+                  </h2>
+                  <select
+                    value={ice}
+                    onChange={(e) => setIce(e.target.value)}
+                    className="w-full p-3 border-2 border-pink-200 rounded-xl bg-white text-[#4B2E2E] font-medium focus:outline-none focus:border-[#4B2E2E]"
+                  >
+                    {iceLevels.map((level) => (
+                      <option key={level}>{level}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <div>
-                <h2 className="text-lg font-bold text-[#4B2E2E] mb-2">
-                  🧊 Ice Level
-                </h2>
-                <select
-                  value={ice}
-                  onChange={(e) => setIce(e.target.value)}
-                  className="w-full p-3 border-2 border-pink-200 rounded-xl bg-white text-[#4B2E2E] font-medium focus:outline-none focus:border-[#4B2E2E]"
-                >
-                  {iceLevels.map((level) => (
-                    <option key={level}>{level}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            )}
 
             {/* Toppings — single select */}
-            {availableToppings.length > 0 && (
+            {availableToppings.length > 0 && !(drink as any).isSnack && (
               <div>
                 <h2 className="text-lg font-bold text-[#4B2E2E] mb-3">
                   🧋 Topping{" "}

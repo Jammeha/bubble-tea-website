@@ -42,7 +42,11 @@ export default function Receipt({ order, onClose }) {
             <div key={idx} className="flex justify-between text-xs text-[#4B2E2E]">
               <div className="pr-4">
                 <p className="font-black uppercase">{item.name} x{item.qty}</p>
-                <p className="text-[9px] text-gray-500">{item.size} | {item.sweetness} Sweet | {item.ice} Ice</p>
+                <p className="text-[9px] text-gray-500">
+                  {item.size}
+                  {item.sweetness !== "N/A" && ` | ${item.sweetness} Sweet`}
+                  {item.ice !== "N/A" && ` | ${item.ice} Ice`}
+                </p>
                 {item.toppings?.length > 0 && (
                   <p className="text-[9px] text-gray-400 italic">+{item.toppings.map(t => t.name).join(", ")}</p>
                 )}
