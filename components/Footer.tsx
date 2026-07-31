@@ -72,21 +72,31 @@ const Footer = () => {
 
             <div className="flex gap-5">
               {[
-                { icon: <Instagram size={20} />, label: "Instagram", href: "https://www.instagram.com/bubbles_gmb/" },
+                { icon: <Instagram size={20} />, label: "Instagram", href: "https://www.instagram.com/ado_jamm/" },
                 { icon: <Facebook size={20} />, label: "Facebook", href: "https://www.facebook.com/bubblesgmb" },
-                { icon: <Music2 size={20} />, label: "TikTok", href: "https://www.tiktok.com/@bubbles_gmb_tiktok" },
-              ].map((social, i) => (
-                <a
-                  key={i}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-2xl text-white hover:bg-[#E88997] hover:border-[#E88997] transition-colors shadow-xl"
-                  aria-label={social.label}
-                >
-                  {social.icon}
-                </a>
-              ))}
+                { icon: <Music2 size={20} />, label: "TikTok", href: "https://www.tiktok.com/@the_girly_coder" },
+              ].map((social, i) =>
+                social.href ? (
+                  <a
+                    key={i}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-2xl text-white hover:bg-[#E88997] hover:border-[#E88997] transition-colors shadow-xl"
+                    aria-label={social.label}
+                  >
+                    {social.icon}
+                  </a>
+                ) : (
+                  <span
+                    key={i}
+                    className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-2xl text-white shadow-xl"
+                    aria-label={social.label}
+                  >
+                    {social.icon}
+                  </span>
+                )
+              )}
             </div>
           </div>
 
