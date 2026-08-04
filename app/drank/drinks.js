@@ -1,0 +1,32 @@
+// export const drinks = [
+//   {
+//     id: 1,
+//     slug: "classic-bubble-tea",
+//     name: "Classic Bubble Tea",
+//     description: "Black tea with milk and chewy tapioca pearls",
+//     price: 4.5,
+//     image: "/rose.png",
+//     rating: 4.5,
+//     category: "milk-tea",
+//   },
+//   {
+//     id: 2,
+//     slug: "matcha-latte",
+//     name: "Matcha Latte",
+//     description: "Premium Japanese matcha with fresh milk",
+//     price: 5.0,
+//     image: "/matcha.png",
+//     rating: 4.5,
+//     category: "latte",
+//   },
+//   {
+//     id: 3,
+//     slug: "taro-milk-tea",
+//     name: "Taro Milk Tea",
+//     description: "Sweet taro flavor blended with milk tea",
+//     price: 4.8,
+//     image: "/bisc.png",
+//     rating: 4.5,
+//     category: "milk-tea",
+//   },
+// ];
