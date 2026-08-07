@@ -4,13 +4,14 @@ import { categories as localCategories } from "@/app/data/categories";
 import { drinks as localDrinks } from "@/app/data/drinks";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
-import DrinkModal from "@/components/DrinkModal";
+import Link from "next/link";
+// import DrinkModal from "@/components/DrinkModal"; // Customize drink — commented out
 
 export default function MenuPage() {
   const [category, setCategory] = useState("all");
   const categories = localCategories;
   const drinks = localDrinks;
-  const [selectedDrink, setSelectedDrink] = useState<any>(null);
+  // const [selectedDrink, setSelectedDrink] = useState<any>(null); // Customize drink — commented out
 
   const getCategoryName = (cat: string) => {
     if (cat === "all") return "Shop All";
@@ -69,10 +70,10 @@ export default function MenuPage() {
               const categoryName = drink.category?.name;
 
               return (
-                <div 
-                  key={drinkId} 
-                  onClick={() => setSelectedDrink(drink)} 
-                  className="group relative cursor-pointer"
+                <Link
+                  key={drinkId}
+                  href={`/menu/${drink.slug}`}
+                  className="group relative cursor-pointer block"
                 >
                   <div className="h-full bg-[#4B2E2E] rounded-[2.5rem] p-8 pb-10 border border-[#5C3B3B] shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:shadow-[0_40px_80px_rgba(75,46,46,0.3)] transition-all duration-500 hover:-translate-y-3 flex flex-col items-center">
                     
@@ -119,27 +120,30 @@ export default function MenuPage() {
                         <div className="h-[1px] w-4 bg-[#E88997]/50"></div>
                       </div>
 
+                      {/* Customize Drink button — commented out
                       <div 
                         className="inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-bold transition-all duration-300 shadow-md transform group-hover:scale-105 active:scale-95 mb-2 bg-[#E88997] text-[#4B2E2E] hover:bg-white"
                       >
                         Customize Drink 🧋
                       </div>
+                      */}
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Drink Customization Modal */}
+      {/* Drink Customization Modal — commented out
       {selectedDrink && (
         <DrinkModal 
           drink={selectedDrink} 
           onClose={() => setSelectedDrink(null)} 
         />
       )}
+      */}
     </>
   );
 }
