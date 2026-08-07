@@ -3,20 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "./context/CartContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { cart, setIsCartOpen } = useCart();
-
-  const [isShaking, setIsShaking] = useState(false);
-  const totalItems = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-
-  const handleCartClick = () => {
-    setIsCartOpen(true);
-    setIsShaking(true);
-    setTimeout(() => setIsShaking(false), 500);
-  };
 
   return (
     <nav className="bg-[#F7D9DC] px-6 md:px-10 py-4 sticky top-0 z-30 shadow-md">
@@ -39,15 +28,6 @@ export default function Navbar() {
             <Link href="/about" className="hover:text-[#E88997] transition px-2 py-1">About</Link>
           </li>
           <li>
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="hover:text-[#E88997] transition px-2 py-1"
-              suppressHydrationWarning
-            >
-              Delivery
-            </button>
-          </li>
-          <li>
             <Link href="/#contact" className="hover:text-[#E88997] transition px-2 py-1">
               Contact
             </Link>
@@ -56,25 +36,9 @@ export default function Navbar() {
 
         {/* Right Side */}
         <div className="flex items-center gap-5">
-          {/* Cart Icon → opens drawer */}
-          <button
-            onClick={handleCartClick}
-            className={`relative hover:scale-110 transition-transform duration-300 ${isShaking ? "animate-shake" : ""}`}
-            suppressHydrationWarning
-          >
-            <Image src="/cup.png" width={38} height={38} alt="cart cup" />
-            {totalItems > 0 && (
-              <span className="absolute -top-1 -right-2 bg-[#E88997] text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-md border border-white">
-                {totalItems}
-              </span>
-            )}
-          </button>
-
-
-
-          {/* Hamburger */}
+          {/* Mobile Hamburger */}
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} suppressHydrationWarning>
+            <button onClick={() => setIsOpen(!isOpen)} suppressHydrationWarning aria-label="Toggle menu">
               <svg
                 className="w-8 h-8 text-[#4B2E2E]"
                 fill="none"
@@ -107,16 +71,6 @@ export default function Navbar() {
           <Link href="/about" onClick={() => setIsOpen(false)}>
             About
           </Link>
-          <button
-            onClick={() => {
-              setIsCartOpen(true);
-              setIsOpen(false);
-            }}
-            className="text-left"
-            suppressHydrationWarning
-          >
-            Delivery
-          </button>
           <Link href="/#contact" onClick={() => setIsOpen(false)}>
             Contact
           </Link>

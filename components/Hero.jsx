@@ -2,17 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "./context/CartContext";
 
 const Hero = () => {
-  const { setIsCartOpen } = useCart();
-
   return (
     <section className="bg-gradient-to-r from-[#F7D9DC] to-[#EEC1C8] px-10 py-24">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-12">
         {/* LEFT SIDE */}
         <div>
-          {/* Unified Headline for better flow and spacing */}
+          {/* Unified Headline */}
           <h1 className="text-6xl lg:text-[5rem] font-bold text-[#4B2E2E] leading-[1.1] mb-6">
             Sweet. Fresh.<br />
             <span className="relative inline-block italic text-[#E88997] my-3">
@@ -40,20 +37,20 @@ const Hero = () => {
           </p>
 
           <div className="flex gap-4 mt-8">
-            <button 
-              onClick={() => setIsCartOpen(true)}
-              className="bg-[#4B2E2E] text-white px-8 py-3 rounded-full hover:opacity-90 transition" 
-              suppressHydrationWarning
-            >
-              Order Now
-            </button>
-
             <Link 
               href="/menu"
-              className="border border-[#4B2E2E] text-[#4B2E2E] px-8 py-3 rounded-full hover:bg-[#4B2E2E] hover:text-white transition inline-block" 
+              className="bg-[#4B2E2E] text-white px-8 py-3.5 rounded-full hover:bg-[#E88997] hover:text-[#4B2E2E] transition-all font-bold shadow-lg inline-block" 
               suppressHydrationWarning
             >
-              View Menu
+              Explore Menu 🧋
+            </Link>
+
+            <Link 
+              href="/about"
+              className="border-2 border-[#4B2E2E] text-[#4B2E2E] px-8 py-3.5 rounded-full hover:bg-[#4B2E2E] hover:text-white transition-all font-bold inline-block" 
+              suppressHydrationWarning
+            >
+              About Us
             </Link>
           </div>
         </div>

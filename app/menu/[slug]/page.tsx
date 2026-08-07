@@ -3,7 +3,6 @@ import { useState, use } from "react";
 import { drinks as localDrinks } from "@/app/data/drinks";
 import { toppings as localToppings } from "@/app/data/toppings";
 import { sizes as localSizes } from "@/app/data/options";
-import { useCart } from "@/components/context/CartContext";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -18,26 +17,15 @@ export default function DrinkPage({
   const drink = localDrinks.find(d => d.slug === slug);
   const availableToppings = localToppings;
   const availableSizes = localSizes;
-  const { addToCart } = useCart() as any;
   const router = useRouter();
 
   const [size, setSize] = useState<any>(localSizes[0] || null);
   const [sweetness, setSweetness] = useState("100%");
   const [ice, setIce] = useState("Regular Ice");
   const [selectedTopping, setSelectedTopping] = useState<any>(null);
-  const [added, setAdded] = useState(false);
-  const [isShaking, setIsShaking] = useState(false);
-
-  const loading = false;
 
   const sweetnessLevels = ["0%", "25%", "50%", "75%", "100%"];
   const iceLevels = ["No Ice", "Less Ice", "Regular Ice"];
-
-  if (loading) return (
-    <div className="min-h-screen bg-[#FDF4F6] flex items-center justify-center">
-      <div className="text-[#4B2E2E] font-black text-2xl animate-pulse">Brewing your tea...</div>
-    </div>
-  );
 
   if (!drink) return (
     <div className="min-h-screen bg-[#FDF4F6] flex flex-col items-center justify-center gap-6">
@@ -52,31 +40,13 @@ export default function DrinkPage({
   const toppingsPrice = selectedTopping ? (selectedTopping.price || 0) : 0;
   const total = (drink.price || 0) + (size?.price || 0) + toppingsPrice;
 
-  const handleAddToCart = () => {
-    addToCart({
-      id: `${drink.id}-${size?.name || 'Reg'}-${selectedTopping?.id || "no-topping"}`,
-      name: drink.name,
-      image: drink.image,
-      size: size?.name || 'Regular',
-      sweetness: (drink as any).isSnack ? "N/A" : sweetness,
-      ice: (drink as any).isSnack ? "N/A" : ice,
-      toppings: selectedTopping && !(drink as any).isSnack ? [selectedTopping] : [],
-      price: total,
-      qty: 1,
-    });
-    setAdded(true);
-    setIsShaking(true);
-    setTimeout(() => setAdded(false), 2000);
-    setTimeout(() => setIsShaking(false), 500);
-  };
-
   return (
     <>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-[#FDF4F6] to-[#FFEFF2]">
         <div className="max-w-6xl mx-auto px-6 pt-8">
           <button
-            onClick={() => router.back()}
+            onClick={() => router.push('/menu')}
             className="flex items-center gap-2 text-[#4B2E2E] font-semibold hover:gap-3 transition-all"
           >
             ← Back to Menu
@@ -197,7 +167,7 @@ export default function DrinkPage({
             {availableToppings.length > 0 && !(drink as any).isSnack && (
               <div>
                 <h2 className="text-lg font-bold text-[#4B2E2E] mb-3">
-                  🧋 Topping{" "}
+                  🧋 Topping / Tapioca{" "}
                   <span className="text-sm font-normal text-gray-400">
                     (pick one)
                   </span>
@@ -228,7 +198,7 @@ export default function DrinkPage({
               </div>
             )}
 
-            {/* Total + Add to Cart */}
+            {/* Total + Back to Menu */}
             <div className="bg-white rounded-2xl p-5 shadow-md border border-pink-100">
               <div className="flex flex-col gap-1 mb-4 text-sm text-gray-500">
                 <div className="flex justify-between">
@@ -248,27 +218,17 @@ export default function DrinkPage({
                   </div>
                 )}
                 <div className="border-t pt-2 mt-1 flex justify-between font-bold text-[#4B2E2E] text-lg">
-                  <span>Total</span>
+                  <span>Total Calculated Price</span>
                   <span>D{total.toFixed(2)}</span>
                 </div>
               </div>
-                {added ? (
-                  <Link
-                    href="/checkout"
-                    className="w-full py-4 rounded-full font-bold text-lg bg-[#E88997] text-[#4B2E2E] hover:bg-white transition-all duration-300 shadow-lg flex items-center justify-center gap-2 animate-fadeIn"
-                  >
-                    Proceed to Checkout 🥤
-                  </Link>
-                ) : (
-                  <button
-                    onClick={handleAddToCart}
-                    className={`w-full py-4 rounded-full font-bold text-lg transition-all duration-300 ${
-                      isShaking ? "animate-shake" : ""
-                    } bg-[#4B2E2E] text-white hover:bg-[#5C3B3B] hover:scale-105 shadow-lg`}
-                  >
-                    Add to Cart 🧋
-                  </button>
-                )}
+
+              <button
+                onClick={() => router.push('/menu')}
+                className="w-full py-4 rounded-full font-bold text-lg bg-[#4B2E2E] text-white hover:bg-[#E88997] hover:text-[#4B2E2E] transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
+              >
+                Explore Full Menu 🧋
+              </button>
             </div>
           </div>
         </div>

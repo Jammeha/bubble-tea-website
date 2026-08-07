@@ -1,19 +1,16 @@
 "use client";
-import React from "react";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { drinks as localDrinks } from "@/app/data/drinks";
+import DrinkModal from "./DrinkModal";
 
 const Mens = () => {
+  const [selectedDrink, setSelectedDrink] = useState(null);
+  
   // Limit to 3 special drinks as requested
   const drinks = localDrinks.filter(d => d.isSpecial).slice(0, 3);
-  const loading = false;
-
-  if (loading) return (
-    <div className="py-24 text-center">
-      <div className="animate-pulse text-[#4B2E2E] font-black">Loading your favorites...</div>
-    </div>
-  );
 
   return (
     <section className="bg-white py-24 px-6 md:px-16 relative overflow-hidden">
@@ -39,7 +36,11 @@ const Mens = () => {
           const drinkId = drink.id;
 
           return (
-            <Link key={drinkId} href={`/menu/${drink.slug}`} className="group relative">
+            <div 
+              key={drinkId} 
+              onClick={() => setSelectedDrink(drink)}
+              className="group relative cursor-pointer"
+            >
               <div className="h-full bg-[#4B2E2E] rounded-[3rem] p-10 flex flex-col items-center border border-[#5C3B3B] shadow-[0_15px_45px_rgba(0,0,0,0.2)] hover:shadow-[0_45px_90px_rgba(75,46,46,0.4)] transition-all duration-700 hover:-translate-y-4">
                 
                 {/* Badges */}
@@ -83,12 +84,12 @@ const Mens = () => {
                     <div className="h-[1px] w-4 bg-[#E88997]/50"></div>
                   </div>
                   
-                  <div suppressHydrationWarning className="inline-flex bg-[#E88997] text-[#4B2E2E] px-10 py-4 rounded-full font-black text-sm hover:bg-white transition-all duration-300 shadow-md group-hover:scale-105 active:scale-95">
-                    Order Now →
+                  <div suppressHydrationWarning className="inline-flex bg-[#E88997] text-[#4B2E2E] px-8 py-3.5 rounded-full font-black text-sm hover:bg-white transition-all duration-300 shadow-md group-hover:scale-105 active:scale-95">
+                    Customize Drink 🧋
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           );
         })}
       </div>
@@ -102,6 +103,14 @@ const Mens = () => {
           </button>
         </Link>
       </div>
+
+      {/* Customization Modal */}
+      {selectedDrink && (
+        <DrinkModal 
+          drink={selectedDrink} 
+          onClose={() => setSelectedDrink(null)} 
+        />
+      )}
     </section>
   );
 };
