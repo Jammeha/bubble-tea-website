@@ -40,16 +40,16 @@ const Footer = () => {
       {/* Floating Branded Corner Decoration - Bottom Right */}
       <div className="absolute bottom-[-20px] right-[-20px] w-40 h-40 bg-[#E88997] opacity-10 rounded-full blur-[60px]"></div>
       <div className="absolute bottom-10 right-10 w-24 h-24 opacity-5 pointer-events-none select-none grayscale invert">
-         <Image src="/logo.png" alt="Bubbles Seal" width={100} height={100} />
+        <Image src="/logo.png" alt="Bubbles Seal" width={100} height={100} />
       </div>
 
       {/* Branded Gloe - Bottom Left */}
       <div className="absolute bottom-[-10%] left-[-10%] w-[30%] h-[30%] bg-[#F7D9DC] rounded-full blur-[120px] opacity-10 pointer-events-none"></div>
-      
+
       {/* Floating Decorative Bobas - Strategic Corners */}
       <div className="absolute top-40 right-[15%] w-12 h-12 bg-[#E88997]/20 rounded-full blur-sm"></div>
       <div className="absolute bottom-60 left-[10%] w-16 h-16 bg-white/5 rounded-full blur-md"></div>
-      
+
       {/* Background Watermark */}
       <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
         <h1 className="text-[25vw] font-black uppercase tracking-[0.3em] leading-none">Bubbles</h1>
@@ -57,15 +57,15 @@ const Footer = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-4 gap-16 items-start">
-          
+
           {/* BRAND COLUMN */}
           <div className="lg:col-span-1 space-y-8">
             <Link href="/" className="inline-block">
               <h2 className="text-5xl font-black tracking-tighter text-[#E88997]">
-                Bubbles<span className="text-white">.</span>
+                Bubbles<span className="text-white"></span>
               </h2>
             </Link>
-            
+
             <p className="text-[#F7D9DC] font-medium leading-relaxed opacity-90 max-w-xs">
               Exceptional tea, chewy pearls, and zero limits. The new era of bubble tea in The Gambia.
             </p>
@@ -100,7 +100,7 @@ const Footer = () => {
                 Vibe with us and get the first look at new flavors.
               </p>
             </div>
-            
+
             <div className="relative max-w-sm">
               <div className="absolute -inset-1.5 bg-gradient-to-r from-[#E88997] via-[#4B2E2E] to-[#E88997] rounded-[2rem] blur opacity-20"></div>
               <div className="relative flex items-center bg-white rounded-[1.8rem] overflow-hidden shadow-2xl">
@@ -110,7 +110,7 @@ const Footer = () => {
                   className="flex-1 min-w-0 px-6 py-5 bg-transparent outline-none text-sm text-[#4B2E2E] font-medium placeholder:text-[#4B2E2E]/30"
                   suppressHydrationWarning
                 />
-                <button 
+                <button
                   className="bg-[#E88997] text-white px-8 py-5 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#4B2E2E] transition-colors whitespace-nowrap"
                   suppressHydrationWarning
                 >
@@ -127,7 +127,7 @@ const Footer = () => {
                 <h4 className="text-sm font-black uppercase tracking-[0.4em] text-[#E88997]">
                   {section.title}
                 </h4>
-                
+
                 <div className="flex flex-col gap-6">
                   {section.items.map((item, i) => (
                     <div key={i} className="group/item">
@@ -142,8 +142,8 @@ const Footer = () => {
                       ) : (
                         <div className="space-y-2 group/loc">
                           <p className="text-white font-black text-sm uppercase tracking-wider flex items-center gap-3 hover:text-[#E88997] transition-colors">
-                             <span className="p-2 bg-white/5 rounded-lg group-hover/loc:bg-[#E88997]/20 transition-colors">{(item as any).icon}</span>
-                             {item.name}
+                            <span className="p-2 bg-white/5 rounded-lg group-hover/loc:bg-[#E88997]/20 transition-colors">{(item as any).icon}</span>
+                            {item.name}
                           </p>
                           <p className="text-white/40 text-[10px] font-black uppercase tracking-widest pl-11">{(item as any).sub}</p>
                         </div>
@@ -160,16 +160,16 @@ const Footer = () => {
         {/* BOTTOM BAR */}
         <div className="mt-32 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] font-black uppercase tracking-[0.3em] text-white/30">
           <div className="flex flex-wrap justify-center md:justify-start items-center gap-8 mb-6 md:mb-0">
-             <p suppressHydrationWarning className="hover:text-white transition-colors">© {new Date().getFullYear()} Bubbles International Ltd.</p>
-             <div className="flex gap-6">
-                <Link href="#" className="hover:text-[#E88997] transition-colors">Privacy Policy</Link>
-                <Link href="#" className="hover:text-[#E88997] transition-colors">Terms of Taste</Link>
-             </div>
+            <p suppressHydrationWarning className="hover:text-white transition-colors">© {new Date().getFullYear()} Bubbles International Ltd.</p>
+            <div className="flex gap-6">
+              <Link href="#" className="hover:text-[#E88997] transition-colors">Privacy Policy</Link>
+              <Link href="#" className="hover:text-[#E88997] transition-colors">Terms of Taste</Link>
+            </div>
           </div>
-          
+
           <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/5 shadow-inner">
-             <div className="w-1.5 h-1.5 rounded-full bg-[#E88997]"></div>
-             <span className="text-[#E88997]">Boba Magic Served 24/7</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-[#E88997]"></div>
+            <span className="text-[#E88997]">Boba Magic Served 24/7</span>
           </div>
         </div>
       </div>
