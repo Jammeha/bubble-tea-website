@@ -103,18 +103,18 @@ const Footer = () => {
 
             <div className="relative max-w-sm">
               <div className="absolute -inset-1.5 bg-gradient-to-r from-[#E88997] via-[#4B2E2E] to-[#E88997] rounded-[2rem] blur opacity-20"></div>
-              <div className="relative flex items-center bg-white rounded-[1.8rem] overflow-hidden shadow-2xl">
+              <div className="relative flex flex-col gap-3">
                 <input
                   type="email"
                   placeholder="vibes@bubbles.gm"
-                  className="flex-1 min-w-0 px-6 py-5 bg-transparent outline-none text-sm text-[#4B2E2E] font-medium placeholder:text-[#4B2E2E]/30"
+                  className="w-full px-6 py-4 rounded-[1.8rem] bg-white outline-none text-sm text-[#4B2E2E] font-semibold placeholder:text-[#4B2E2E]/75 shadow-2xl"
                   suppressHydrationWarning
                 />
                 <button
-                  className="bg-[#E88997] text-white px-8 py-5 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#4B2E2E] transition-colors whitespace-nowrap"
+                  className="w-full bg-[#E88997] text-white px-8 py-4 rounded-[1.8rem] font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#4B2E2E] transition-colors shadow-xl"
                   suppressHydrationWarning
                 >
-                  Join
+                  Join the Drop
                 </button>
               </div>
             </div>

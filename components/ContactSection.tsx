@@ -63,35 +63,24 @@ const ContactSection = () => {
             </div>
           </div>
 
-          {/* Card 3: Branch 3 Coming Soon */}
-          <div className="bg-[#FDF4F6] p-8 rounded-3xl shadow-sm border border-pink-100 opacity-60 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 bg-[#E88997] text-white px-4 py-1 text-[10px] font-black uppercase tracking-tighter rounded-bl-xl">Coming Soon</div>
-            <div className="bg-[#4B2E2E]/10 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-[#4B2E2E]">
-              <MapPin size={24} />
-            </div>
-            <h3 className="text-2xl font-bold text-[#4B2E2E] mb-2">Fajara</h3>
-            <p className="text-[#6B4B4B] mb-6">
-              Future Location,<br />
-              Next to Ocean Bay
-            </p>
-            <div className="pt-6 border-t border-pink-200/50">
-               <p className="text-[10px] font-black text-[#E88997] uppercase tracking-widest">Expansion in progress</p>
-            </div>
-          </div>
-
-          {/* Card 4: Branch 4 Coming Soon */}
-          <div className="bg-[#FDF4F6] p-8 rounded-3xl shadow-sm border border-pink-100 opacity-60 relative overflow-hidden group">
-             <div className="absolute top-0 right-0 bg-[#E88997] text-white px-4 py-1 text-[10px] font-black uppercase tracking-tighter rounded-bl-xl">Coming Soon</div>
-            <div className="bg-[#4B2E2E]/10 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-[#4B2E2E]">
+          {/* Card 3: Brusubi - Active Branch */}
+          <div className="bg-[#FDF4F6] p-8 rounded-3xl shadow-sm border border-pink-100 hover:shadow-md transition">
+            <div className="bg-[#E88997] w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-white">
               <MapPin size={24} />
             </div>
             <h3 className="text-2xl font-bold text-[#4B2E2E] mb-2">Brusubi</h3>
             <p className="text-[#6B4B4B] mb-6">
-              Future Location,<br />
-              Brusubi Turntable
+              Brusubi Turntable,<br />
+              West Coast Region, The Gambia
             </p>
-            <div className="pt-6 border-t border-pink-200/50">
-               <p className="text-[10px] font-black text-[#E88997] uppercase tracking-widest">Coming to your neighborhood</p>
+            <div className="pt-6 border-t border-pink-200">
+              <h4 className="font-bold text-[#4B2E2E] flex items-center gap-2 mb-3">
+                <Clock size={16} /> Opening Hours
+              </h4>
+              <ul className="text-sm text-[#6B4B4B] space-y-1">
+                <li className="flex justify-between"><span>Mon - Thu</span> <span>10:00 - 21:00</span></li>
+                <li className="flex justify-between"><span>Fri - Sun</span> <span>10:00 - 22:00</span></li>
+              </ul>
             </div>
           </div>
 
