@@ -1,4 +1,4 @@
-export const categories = [
+export const categories: string[] = [
   "all",
   "Classic Milk Tea",
   "Fruit Tea",

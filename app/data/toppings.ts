@@ -1,4 +1,10 @@
-export const toppings = [
+export interface Topping {
+  id: number;
+  name: string;
+  price: number;
+}
+
+export const toppings: Topping[] = [
   {
     id: 1,
     name: "Tapioca Pearls",

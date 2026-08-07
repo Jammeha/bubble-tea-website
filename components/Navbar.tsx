@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <nav className="bg-[#F7D9DC] px-6 md:px-10 py-4 sticky top-0 z-30 shadow-md">

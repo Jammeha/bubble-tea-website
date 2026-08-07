@@ -2,7 +2,12 @@
 
 import Image from "next/image";
 
-export default function Receipt({ order, onClose }) {
+interface ReceiptProps {
+  order: any;
+  onClose: () => void;
+}
+
+export default function Receipt({ order, onClose }: ReceiptProps) {
   if (!order) return null;
 
   const handlePrint = () => {
@@ -38,7 +43,7 @@ export default function Receipt({ order, onClose }) {
             <span>Item</span>
             <span>Price</span>
           </div>
-          {order.items.map((item, idx) => (
+          {order.items?.map((item: any, idx: number) => (
             <div key={idx} className="flex justify-between text-xs text-[#4B2E2E]">
               <div className="pr-4">
                 <p className="font-black uppercase">{item.name} x{item.qty}</p>
@@ -48,7 +53,7 @@ export default function Receipt({ order, onClose }) {
                   {item.ice !== "N/A" && ` | ${item.ice} Ice`}
                 </p>
                 {item.toppings?.length > 0 && (
-                  <p className="text-[9px] text-gray-400 italic">+{item.toppings.map(t => t.name).join(", ")}</p>
+                  <p className="text-[9px] text-gray-400 italic">+{item.toppings.map((t: any) => t.name).join(", ")}</p>
                 )}
               </div>
               <span className="font-bold whitespace-nowrap">D{(item.price * item.qty).toFixed(0)}</span>
@@ -60,7 +65,7 @@ export default function Receipt({ order, onClose }) {
         <div className="border-t-2 border-dashed border-gray-200 pt-4 space-y-2">
           <div className="flex justify-between text-xs text-gray-500 uppercase font-black">
             <span>Subtotal</span>
-            <span>D{order.totalPrice.toFixed(0)}</span>
+            <span>D{(order.totalPrice || 0).toFixed(0)}</span>
           </div>
           {order.deliveryFee > 0 && (
             <div className="flex justify-between text-xs text-gray-500 uppercase font-black">
@@ -70,16 +75,8 @@ export default function Receipt({ order, onClose }) {
           )}
           <div className="flex justify-between text-xl font-black text-[#4B2E2E] border-t border-gray-100 pt-2">
             <span>Total</span>
-            <span>D{order.finalTotal.toFixed(0)}</span>
+            <span>D{(order.finalTotal || 0).toFixed(0)}</span>
           </div>
-        </div>
-
-        {/* Payment Info */}
-        <div className="mt-8 pt-4 border-t border-gray-100 text-center">
-          <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Payment Method</p>
-          <p className="text-sm font-black text-[#4B2E2E] mt-1 italic uppercase">
-            {order.paymentMethod === 'cash' ? '💵 Cash on Delivery' : '🌊 Waychit / Wave'}
-          </p>
         </div>
 
         {/* Customer Info */}
@@ -89,12 +86,6 @@ export default function Receipt({ order, onClose }) {
           <p>{order.customerPhone}</p>
           {order.deliveryZone && <p className="mt-1 font-bold text-[#4B2E2E]">Area: {order.deliveryZone}</p>}
           {order.deliveryAddress && <p className="mt-1 italic">{order.deliveryAddress}</p>}
-        </div>
-
-        {/* Footer */}
-        <div className="mt-10 text-center">
-          <p className="text-xs font-black uppercase tracking-tighter text-[#4B2E2E]">Thank you for Bubbling!</p>
-          <p className="text-[9px] text-gray-400 mt-1 uppercase tracking-widest">Follow us @bubbles.gambia</p>
         </div>
 
         {/* Print Button (Hidden on Print) */}

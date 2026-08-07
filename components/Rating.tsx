@@ -1,8 +1,13 @@
 "use client";
 import { useState } from "react";
 
-export default function Rating({ initial = 0, onChange }) {
-  const [rating, setRating] = useState(initial);
+interface RatingProps {
+  initial?: number;
+  onChange?: (rating: number) => void;
+}
+
+export default function Rating({ initial = 0, onChange }: RatingProps) {
+  const [rating, setRating] = useState<number>(initial);
 
   return (
     <div className="flex gap-1">

@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { drinks as localDrinks } from "@/app/data/drinks";
+import { drinks as localDrinks, Drink } from "@/app/data/drinks";
 import DrinkModal from "./DrinkModal";
 
 const Mens = () => {
-  const [selectedDrink, setSelectedDrink] = useState(null);
+  const [selectedDrink, setSelectedDrink] = useState<Drink | null>(null);
   
   // Limit to 3 special drinks as requested
   const drinks = localDrinks.filter(d => d.isSpecial).slice(0, 3);

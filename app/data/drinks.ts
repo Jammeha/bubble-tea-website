@@ -1,4 +1,26 @@
-export const drinks = [
+export interface DrinkCategory {
+  name: string;
+}
+
+export interface Drink {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  image?: string;
+  category?: DrinkCategory;
+  description?: string;
+  isSpecial?: boolean;
+  rating?: number;
+  isSnack?: boolean;
+  seasonal?: boolean;
+  seasonLabel?: string;
+  offerLabel?: string;
+  availableFrom?: string;
+  availableTo?: string;
+}
+
+export const drinks: Drink[] = [
   // MILK TEAS
   {
     id: "1",

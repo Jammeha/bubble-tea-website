@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { generalSettings } from "@/app/data/general";
 
 const PromotionBanner = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const messages = generalSettings.specialOfferTexts || [];
 
   useEffect(() => {
@@ -32,4 +32,3 @@ const PromotionBanner = () => {
 };
 
 export default PromotionBanner;
-

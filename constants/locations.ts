@@ -1,6 +1,13 @@
 export const CONTACT_NUMBER = "2205410593";
 
-export const STORES = [
+export interface StoreLocation {
+  id: string;
+  label: string;
+  address: string;
+  sub: string;
+}
+
+export const STORES: StoreLocation[] = [
   {
     id: "senegambia",
     label: "Tropic Mall Senegambia",
